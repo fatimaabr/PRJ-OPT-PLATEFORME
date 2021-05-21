@@ -22,9 +22,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				
-			
-				
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-menu-caption">
 					    <label>Bin Packing</label>
@@ -65,19 +62,13 @@
                     <li class="nav-item pcoded-hasmenu">
 					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Graphes</span></a>
 					</li>
-
 				</ul>
-				
-			
-				
 			</div>
 		</div>
 	</nav>
 	<!-- [ navigation menu ] end -->
 	<!-- [ Header ] start -->
 	<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
-		
-			
 				<div class="m-header">
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="#!" class="b-brand">
@@ -100,15 +91,11 @@
 							</div>
 						</li>
 					</ul>
-				
 				</div>
 				
-			
 	</header>
 	<!-- [ Header ] end -->
 	
-	
-
 <!-- [ Main Content ] start -->
 <div class="pcoded-main-container">
     <div class="pcoded-content">
@@ -137,7 +124,7 @@
                         <h5>Les objets</h5>
                     </div>
                     <div class="card-body table-border-style"> 
-                        <div class="table-responsive objects">
+                        <div class="table-responsive objects" style ="height: 490px;">
                             <table class="table table-hover"  >
                                 <thead>
                                     <tr>
@@ -160,9 +147,11 @@
 				<div class="card">
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
+							
 					
-						<input type="file" class="col-sm-6" size="60" id="instance" onchange="loadFile(this.files[0])">
-					
+                        <input type="file" class="col-sm-6" size="60" id="instance" onchange="loadFile(this.files[0])">
+							
+	
 					</div>
                     <div class="card-body table-border-style">
                         <div class="table-responsive">
@@ -182,72 +171,15 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>	
+                        <div class="card-body d-flex justify-content-center">
+                            <button type="button" class="btn  btn-info col-sm-6" id="btn_run_RS" onclick="bnbjs()" >Résoudre le probléme </button>
                         </div>		
-								</table>
-							</div>
+					</div>
 							
-                    </div>
-					<div class="card-body d-flex justify-content-center">
-						<button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="bnbjs()" >Résoudre le probléme </button>
-                        <script>var capacite = 0 ; 
-                            var items = [] ; 
-                            var nombre_items = 0 ; 
-                            var solution = [] ; 
-                            
-                            async function loadFile(file) {
-                                let text = await (new Response(file)).text();
-                                var list= text.split('\n') ;
-                                var list = list.map(function (x) { return parseInt(x); });
-                                capacite =  list[1]  ; 
-                                nombre_items = list[0] ; 
-                                items = list.slice(2 , list[0]+2 ) ;
-                                var objets = $(".body_objets")[0] ; 
-                                var nb = $("#NB")[0] ; 
-                                var c = $("#capacite")[0] ; 
-                                var poids = $("#Poids")[0] ; 
-                            
-                                poids.innerHTML = Math.min (...items) + " < p < " + Math.max (...items) ; 
-                                c.innerHTML = capacite ; 
-                                nb.innerHTML = nombre_items ; 
-                                for(var i = 0 ; i <items.length ; i++) {
-                                    var tr = document.createElement('tr') ; 
-                                    tr.innerHTML=" <td> " +i + " </td> <td> " + items[i]+ "</td>" ; 
-                                    objets.append (tr) ; 
-                                }
-                             
-                                document.getElementById("sol_bins").innerHTML = "" ; 
-                                document.getElementById("time").innerHTML ="" ; 
-                                 
-                            
-                            }
-                            function bnbjs(){
-                                eel.branchAndBound(capacite,items);
-                                
-                            }
-                            
-                            eel.expose(jsaffich); // Expose this function to Python
-                            function jsaffich(a,t) {
-                                document.getElementById("sol_bins").innerHTML = a ; 
-                                document.getElementById("time").innerHTML = t + " secondes" ;
-                            }
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                                  
-                                 
-                                            </script>
-                    </div>
-                    <!--*****************-->
-                    <div class="col-md-12">
+                </div>
+					
+    
                         <div class="card">
                             <div class="card-header">
                                 <h5>Solution Branch and Bound </h5>
@@ -282,7 +214,7 @@
                             </div>
                             <div class="card-footer "></div>
                         </div>
-                    </div>
+                   
                 </div>
                     <!--*****************-->
                 </div>     
@@ -297,8 +229,7 @@
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/ripple.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
-	
-
+    <script src="assets/js/b&b.js"></script>
 <!-- Apex Chart -->
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 

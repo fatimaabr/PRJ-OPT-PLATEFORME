@@ -24226,9 +24226,17 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
 }
 
 
-#sol_bins , #time{
+#sol_bins , #time {
 
     font-size: 30px ;
     color : #4680ff ; 
     font-weight: bold;
+}
+
+#sol_bins1 , #sol_bins2 , #sol_bins3 , #sol_bins4 , #sol_bins5 , #sol_bins6 , 
+#time1 , #time2 , #time3 , #time4 , #time5 , #time6 {
+
+  color : #4680ff ; 
+  font-weight: bold;
+
 }

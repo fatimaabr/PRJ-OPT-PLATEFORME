@@ -1,3 +1,38 @@
+// get files and items , execute algorithms 
+
+document.querySelector("#file-upload-1").onchange = async function(){
+    document.querySelector("#file-name").textContent ="loaded" ; 
+    var text = "" ; 
+    var names = [] ; 
+    var list = [ ] ; 
+    var capacite = [] ;  
+    var nombre_items =  [] ; 
+    var items = [] ; 
+    for ( var i = 0 ; i < this.files.length ; i++ ){
+        text = await (new Response(this.files[i]).text());
+        names[i] = this.files[i].name ; 
+        list= text.split('\n') ;
+        list = list.map(function (x) { return parseInt(x); });
+        capacite[i] =  list[1]  ; 
+        nombre_items[i] = list[0] ; 
+        items[i] = list.slice(2 , list[0]+2 ) ;
+
+
+
+    }
+    console.log(items , capacite , nombre_items ) ; 
+    for( i=0 ; i < items.length ; i++ ) {
+        // execute les heuristiques et recuperer les resultats dans deux tableaux temps[][] et solutions[][] , pour chaque instances le reusltat de chaque heuristique ;  
+    }
+
+}
+
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+
+
 /*function for line chart 1 */ 
 
 $(function() {

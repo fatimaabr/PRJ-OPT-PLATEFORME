@@ -146,7 +146,7 @@ $(function() {
         dataLabels: {
             enabled: false
         },
-        colors: ["#0e9e4a", "#4680ff", "#ff5252"],
+        colors: ["#0e9e4a", "#4680ff", "#ff5252" , "#ffba57" , "#00acc1"],
         stroke: {
             show: true,
             width: 2,
@@ -159,6 +159,14 @@ $(function() {
             name: 'Revenue',
             data: [76, 85, 101, 98, 87, 105, 91]
         }, {
+            name: 'Free Cash Flow',
+            data: [35, 41, 36, 26, 45, 48, 52]
+        },
+        {
+            name: 'Free Cash Flow',
+            data: [35, 41, 36, 26, 45, 48, 52]
+        },
+        {
             name: 'Free Cash Flow',
             data: [35, 41, 36, 26, 45, 48, 52]
         }],
@@ -188,3 +196,24 @@ $(function() {
     );
     chart.render();
 });
+
+
+
+
+
+
+
+
+
+
+async function loadFile(file) {
+    let text = await (new Response(file)).text();
+    var list= text.split('\n') ;
+    var list = list.map(function (x) { return parseInt(x); });
+    capacite =  list[1]  ; 
+    nombre_items = list[0] ; 
+    items = list.slice(2 , list[0]+2 ) ;
+
+
+
+}

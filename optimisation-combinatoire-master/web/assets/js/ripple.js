@@ -133,3 +133,8 @@
         $(document).on(self.defaults.on, self.selector, Trigger);
     };
 })(jQuery, document, Math);
+
+
+document.querySelector("#file-upload-1").onchange = function(){
+  document.querySelector("#file-name").textContent = this.files[0].name;
+}

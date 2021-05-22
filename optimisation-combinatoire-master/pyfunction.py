@@ -31,8 +31,9 @@ def ffd_py(c,w):
   temps_apres_exec= datetime.now()
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
-  eel.jsaffich1(n_bin,temps_exec) 
-  return n_bin, bin_for_item, temps_exec
+  eel.jsaffich1(n_bin,temps_exec)
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return n_bin,temps_exec,bin_for_item
 #*******************************************************************************
 #******************************FFI**********************************************
 @eel.expose

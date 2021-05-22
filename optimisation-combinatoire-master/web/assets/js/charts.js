@@ -28,27 +28,27 @@ document.querySelector("#file-upload-1").onchange = async function(){
         // execute les heuristiques et recuperer les resultats dans deux tableaux temps[][] et solutions[][] , pour chaque instances le reusltat de chaque heuristique ;   
         //-------------------FFD-----------------  
     tabconfig = [];  
-    solutions[0][i],tabconfig,temps[0][i] = eel.ffd_py(capacite[i],items[i]);
+    solutions[0][i] = eel.ffd_py(capacite[i],items[i])(); //,tabconfig,temps[0][i]
     //---------------------------------------
     //-------------------FFI-----------------
     tabconfig = [];
-    solutions[1][i],tabconfig,temps[1][i] = eel.ffi_py(capacite[i],items[i]);
+    solutions[1][i] = eel.ffi_py(capacite[i],items[i])(); //,tabconfig,temps[1][i]
     //---------------------------------------
     //-------------------BF-----------------
     tabconfig = [];
-    solutions[2][i],tabconfig,temps[2][i] = eel.bf_py(capacite[i],items[i]);
+    solutions[2][i] = eel.bf_py(capacite[i],items[i])(); //,tabconfig,temps[2][i]
     //---------------------------------------
     //-------------------WF-----------------
     tabconfig = [];
-    solutions[3][i],tabconfig,temps[3][i] = eel.wf_py(capacite[i],items[i]);
+    solutions[3][i] = eel.wf_py(capacite[i],items[i])(); //,tabconfig,temps[3][i]
     //---------------------------------------
     //-------------------AWF-----------------
        tabconfig = [];
-       solutions[4][i],tabconfig,temps[4][i] = eel.awf_py(capacite[i],items[i]);
+       solutions[4][i] = eel.awf_py(capacite[i],items[i])(); //,tabconfig,temps[4][i]
     //---------------------------------------
     //-------------------NF-----------------
        tabconfig = [];
-       solutions[5][i],tabconfig,temps[5][i] = eel.nf_py(capacite[i],items);
+       solutions[5][i] = eel.nf_py(capacite[i],items)(); //,tabconfig,temps[5][i] 
     //---------------------------------------
     }
        

@@ -179,10 +179,11 @@ def nf_py(c,w):
 #*******************************************************************************
 #*************************************BRANCH AND BOUND**************************
 class Node:
-    def __init__(self, poidrest, niveau, numbin):
+    def __init__(self, poidrest, niveau, numbin,conf):
         self.poidrest = poidrest    #Tableau des poids restants pour chaque boîte
-        self.niveau = niveau              #Le niveau du noeud dans l'arbre
+        self.niveau = niveau        #Le niveau du noeud dans l'arbre
         self.numbin = numbin        #nombre de boîtes utilisées
+        self.conf = conf
 
     def getNiveau(self):
         return self.niveau
@@ -195,23 +196,29 @@ class Node:
 
     def getpoidrest(self, i):
         return self.poidrest[i]
-@eel.expose   
-def branchAndBound( c, w):
+
+    def getconf(self):
+        return self.conf  
+
+
+@eel.expose
+def branchAndBound(w, c):
         temps_Debut_exec = datetime.now()
         n = len(w)
-      
         minBins = n  # initialiser la valeur optimale à n
         Nodes = []  # les noeuds à traiter
         poidrest = [c] * n  # initialiser les poids restants dans chaque boite [c,c,c,.......c]
         numBins = 0  # initialiser le nombre de boites utilisées
+        conf = [-1] * n
+        conf_opt = []
         for k in range(len(w)):
             if w[k] > c:
                 print("les poids des objets ne doivent pas dépasser la capacité du bin")
                 return 0
             else:
                 
-                curN = Node(poidrest, 0, numBins)  # créer le premier noeud, niveau 0, nombre de boites utilisées 0
-
+                curN = Node(poidrest, 0, numBins,conf)  # créer le premier noeud, niveau 0, nombre de boites utilisées 0
+                
                 Nodes.append(curN)  # ajouter le noeud à l'arbre
 
                 while len(Nodes) > 0:  # tant qu'on a un noeud à traiter
@@ -221,40 +228,49 @@ def branchAndBound( c, w):
 
                     if (curNiveau == n) and (
                             curN.getNumBin() < minBins):  # si c'est une feuille et nbr boites utilisées < minBoxes
-                        minBins = curN.getNumBin()  # umettre à jour minBoxes
-
+                        minBins = curN.getNumBin()  # mettre à jour minBoxes
+                        conf_opt = curN.getconf()
+                        print(conf_opt)
+                        
                     else:
 
                         indNewBox = curN.getNumBin()
-
+                        conf = curN.getconf() # je recupere la configuration du noeud
+                        
                         if (indNewBox < minBins):
 
                             poidCurNiveau = w[curNiveau]
+
                             for i in range(indNewBox + 1):
-                                if (curNiveau < n) and (curN.getpoidrest(
-                                        i) >= poidCurNiveau):  # si cet possible d'insérer l'objet dans la boite i
+                                
+                                if (curNiveau < n) and (curN.getpoidrest(i) >= poidCurNiveau):  # si c'est possible d'insérer l'objet dans la boite i
                                     # on crée un nouveau noeud.
+                                    conf[curNiveau] = i # j'insere l'affectation dans la config a l'indice de l'objet
+
                                     newWRemaining = curN.getpoidrests().copy()
                                     newWRemaining[i] -= poidCurNiveau  # la capacité restante i - le poids du nouvel objet
 
                                     if (i == indNewBox):  # nouvelle boite
-                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox + 1)
+                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox + 1,conf)
+                                       
                                         for j in range(curNiveau + 1, len(w)):
                                             s = + w[j]
+
                                         if (((indNewBox + 1) + s / c) < minBins):
                                             Nodes.append(newNode)
                                     else:  # boite deja ouverte
-                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox)
+                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox,conf)
+                                        
                                         for j in range(curNiveau + 1, len(w)):
                                             s = + w[j]
                                         if ((indNewBox + s / c) < minBins):
                                             Nodes.append(newNode)
-                print(minBins)
                 temps_apres_exec= datetime.now()
                 temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
                 print("Exec time :",temps_exec)
                 eel.jsaffich(minBins,temps_exec)
-                return minBins
+                tab = [minBins,temps_exec,conf_opt]
+                return tab
                 
 #*******************************************************************************
 #****************************************AG*************************************
@@ -596,103 +612,6 @@ def agpy(capacite,objets):
     eel.jsaffich(solution.best_solution.num_bins,t)
     #print(total_iter)
 #*******************************************************************************
-
-#***********************************RT******************************************
-def bon_voisins(conf,ind,max_bin,taboue,L):
-  V = []
-  for i in range(max_bin):
-    if i!=conf[ind]:
-      v = conf.copy()
-      v[ind]=i
-      if verif(v) and ((v not in taboue) or len(taboue)== L or eval(v) < max_bin):
-        if len(taboue)== 10: taboue.pop()
-        return [v]
-        V.append(v)
-  return V  
-#-----------------------------------------------------------------------------------
-class MoveOperator:
-    @staticmethod
-    def apply(items, choices):
-        """
-        Applies the operator to the given items.
-        :param items: The items to which the operator should be applied.
-        :param choices: Items that the operator can inject into the items if necessary.
-        :return: The list of items after the operator was applied.
-        """
-        return items
-
-
-class Remove(MoveOperator):
-    @staticmethod
-    def apply(items, choices):
-        """
-        Removes one or more of the items from the items list. Guarantees that there will always be at least one item
-        left in the list of items.
-        :param items: The items to which the operator should be applied.
-        :param choices: Items that the operator can inject into the items if necessary.
-        :return: The list of items after the operator was applied.
-        """
-        num_removals = random.randrange(len(items))
-        for _ in range(num_removals):
-            to_remove = random.randrange(len(items))
-            items = items[:to_remove] + items[to_remove + 1:]
-        return items
-
-
-class Add(MoveOperator):
-    @staticmethod
-    def apply(items, choices):
-        """
-        Adds one or more randomly picked items from the choices list to the list of items.
-        :param items: The items to which the operator should be applied.
-        :param choices: Items that the operator can inject into the items if necessary.
-        :return: The list of items after the operator was applied.
-        """
-        num_inserts = random.randrange(len(items) + 1)
-        for _ in range(num_inserts):
-            to_insert = random.randrange(len(items))
-            items = items[:to_insert] + random.choice(choices) + items[to_insert:]
-        return items
-
-
-class Change(MoveOperator):
-    @staticmethod
-    def apply(items, choices):
-        """
-        Changes one or more of the items in the item list to a randomly picked item in the choices list.
-        :param items: The items to which the operator should be applied.
-        :param choices: Items that the operator can inject into the items if necessary.
-        :return: The list of items after the operator was applied.
-        """
-        num_changes = random.randrange(len(items)+1)
-        items = list(items)
-        for _ in range(num_changes):
-            to_change = random.randrange(len(items))
-            items[to_change] = random.choice(choices)
-        return "".join(items)
-
-
-class Swap(MoveOperator):
-    @staticmethod
-    def apply(items, choices):
-        """
-        Swaps one or more of the items with another one in the item list.
-        :param items: The items to which the operator should be applied.
-        :param choices: Items that the operator can inject into the items if necessary.
-        :return: The list of items after the operator was applied.
-        """
-        num_swaps = random.randrange(len(items))
-        items = list(items)
-        for _ in range(num_swaps):
-            idx1, idx2 = random.randrange(len(items)), random.randrange(len(items))
-            items[idx1], items[idx2] = items[idx2], items[idx1]
-        return "".join(items)
-
-
-#*******************************************************************************
-
-
-
 
 
 

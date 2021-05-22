@@ -29,8 +29,13 @@ document.querySelector("#file-upload-1").onchange = async function(){
         //-------------------FFD----------------- 
             tab =[];
             tab  = await eel.ffd_py(capacite[i],items[i])();
-            solutions[0][i] = tab[0];
-            temps[0][i] = tab[1]; 
+            var nbin =0;
+            var t =0;
+            nbin = tab[0];
+            t =  tab[1];
+            solutions[0][0] = nbin;
+            temps[0][0] = t; 
+            console.log("*******"+ nbin,t)
     //---------------------------------------
     //-------------------FFI-----------------
             tab =[];
@@ -65,6 +70,7 @@ document.querySelector("#file-upload-1").onchange = async function(){
     }
        
 }
+
 
 
 /*----------------------------------------------------------------------------------------------*/

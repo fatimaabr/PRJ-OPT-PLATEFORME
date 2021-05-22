@@ -29,9 +29,22 @@ async function loadFile(file) {
      
 
 }
-function bnbjs(){
-    eel.branchAndBound(capacite,items);
-    
+async function loadtable(tableau){
+    var obj = $(".body_objets2")[0] ;
+    for(var i = 0 ; i <tableau.length ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+        obj.append (tr) ; 
+    }
+ }
+async function bnbjs(){
+    //eel.branchAndBound(items,capacite);
+            var tab =[];
+            tab  = await eel.branchAndBound(items,capacite)();
+            var c = [];
+            c = tab[2];
+            console.log(" configuration : "+c);
+            loadtable(c);
 }
 
 eel.expose(jsaffich); // Expose this function to Python

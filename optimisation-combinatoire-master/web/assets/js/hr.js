@@ -46,23 +46,83 @@ var solution = [] ;
             console.log(c + " from Python")
          }
          
-        eel.expose(heurisjs);
-        function heurisjs(){
-           
-            eel.ffd_py(capacite,items);
-            eel.ffi_py(capacite,items);
-            eel.bf_py(capacite,items);
-            eel.wf_py(capacite,items);
-            eel.awf_py(capacite,items);
-            eel.nf_py(capacite,items);
-        
-        
+       
+         async function loadtable(tableau){
+            var obj = $(".body_objets2")[0] ;
+            for(var i = 0 ; i <tableau.length ; i++) {
+                var tr = document.createElement('tr') ; 
+                tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+                obj.append (tr) ; 
+            }
+         }
+         eel.expose(heurisjs);
+        async function heurisjs(){
+            var configs = [6];
+            //--------------------------------------------------------
+            var tab1 =[];
+            tab1  = await eel.ffd_py(capacite,items)();
+            var c1 = [];
+            c1 = tab1[2];
+            console.log(" configuration : "+c1)
+            //loadtable(c1);
+            //--------------------------------------------------------
+            var tab2 =[];
+            tab2  = await eel.ffi_py(capacite,items)();
+            var c2 = [];
+            c2 = tab2[2];
+            console.log(" configuration : "+c2)
+            //--------------------------------------------------------
+            var tab3 =[];
+            tab3  = await eel.bf_py(capacite,items)();
+            var c3 = [];
+            c3 = tab3[2];
+            console.log(" configuration : "+c3)
+            //--------------------------------------------------------
+            var tab4 =[];
+            tab4  = await eel.wf_py(capacite,items)();
+            var c4 = [];
+            c4 = tab4[2];
+            console.log(" configuration : "+c4)
+            //--------------------------------------------------------
+            var tab5 =[];
+            tab5 = await eel.awf_py(capacite,items)();
+            var c5 = [];
+            c5 = tab5[2];
+            console.log(" configuration : "+c5)
+            //--------------------------------------------------------
+            var tab6 =[];
+            tab6  = await eel.nf_py(capacite,items)();
+            var c6 = [];
+            c6 = tab6[2];
+            console.log(" configuration : "+c6)
+            configs[0]=c1;configs[1]=c2;configs[2]=c3;configs[3]=c4;configs[4]=c5;configs[5]=c6;
+            //return configs;
+            //console.log(" configuration : "+configs[6]+"&&[5]")
+            function onRowClick(tableId,callback) {
+                var table = document.getElementById(tableId),
+                    rows = table.getElementsByTagName("tr"),
+                    i;
+               // console.log("  rows.length ==="+rows.length+"&&[5]")
+                for (i = 0; i < rows.length; i++) {
+                   // console.log("iiiiiiiiiiiiii"+i);
+                    table.rows[i].onclick = function (row) {
+                        return function () {
+                            var k = configs[this.rowIndex-1];
+                            loadtable(k);
+                            console.log("++++++++++ROW"+this.rowIndex);
+                            callback(row);
+                        };
+                    }(table.rows[i]);
+                }
+            };
+            onRowClick("my-table-id", function (row){
+                $("#table").remove();
+            });
+        //------------------------------------------------------------------------
         }
-        
-        
-       // eel.ffd_py(capacite,items)(afjs);
 
-
+        
+  //______________________________________________________________________
         eel.expose(jsaffich1); // Expose this function to Python
         function jsaffich1(a,t) {
             document.getElementById("sol_bins1").innerHTML = a ; 
@@ -93,8 +153,3 @@ var solution = [] ;
             document.getElementById("sol_bins6").innerHTML = a ; 
             document.getElementById("time6").innerHTML = t + " secondes" ;
         }
-
-
-      
-     
-                

@@ -202,16 +202,16 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive ">
-                                    <table class="table table-hover ">
+                                    <table id="my-table-id" class="table table-hover ">
                                         <thead>
                                             <tr>
                                                 <th >Heuristique </th>
                                                 <th >Nombre des bins</th>
-                                                <th>Temps d'exécution</th>
-                                                
+                                                <th>Temps d'exécution</th>   
                                             </tr>
                                         </thead>
                                         <tbody >
+                                            
                                             <tr id="sol1">
                                                 <td>FFD</td>  
                                                 <td id="sol_bins1"></td>
@@ -247,6 +247,28 @@
                                 </div>
                             </div>
                             <div class="card-footer "></div>
+                            <div class="col-md-9 " style ="margin: auto;" >
+                                <div class="card"  >
+                                    <div class="card-header">
+                                        <h5>Le contenu des bins</h5>
+                                    </div>
+                                    <div class="card-body table-border-style"> 
+                                        <div class="table-responsive objects" style ="height: 200px;">
+                                            <table id="table" class="table table-hover"  >
+                                                <thead>
+                                                    <tr>   
+                                                        <th>Item</th>
+                                                        <th>Bin</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="cases" class="body_objets2">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                 
                 </div>

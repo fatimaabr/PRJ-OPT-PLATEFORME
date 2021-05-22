@@ -32,9 +32,21 @@ document.querySelector("#file-upload-1").onchange = async function(){
     for( i=0 ; i < items.length ; i++ ) {
         // execute les heuristiques et recuperer les resultats dans deux tableaux temps[][] et solutions[][] , pour chaque instances le reusltat de chaque heuristique ;   
         //-------------------FFD----------------- 
+<<<<<<< HEAD
             tab  = await ( eel.ffd_py(capacite[i],items[i])());
             FFD[i] = tab[0];
             
+=======
+            tab =[];
+            tab  = await eel.ffd_py(capacite[i],items[i])();
+            var nbin =0;
+            var t =0;
+            nbin = tab[0];
+            t =  tab[1];
+            solutions[0][0] = nbin;
+            temps[0][0] = t; 
+            console.log("*******"+ nbin,t)
+>>>>>>> a3b3950fbc54b4fea98c0359a1ba37641acec9b1
     //---------------------------------------
     //-------------------FFI-----------------
             
@@ -67,6 +79,7 @@ document.querySelector("#file-upload-1").onchange = async function(){
 
        
 }
+
 
 
 /*----------------------------------------------------------------------------------------------*/

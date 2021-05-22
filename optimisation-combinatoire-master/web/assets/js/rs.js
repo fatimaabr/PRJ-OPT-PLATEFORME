@@ -197,7 +197,6 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var Tmin = parseFloat( document.getElementById("Tmin").value )  ;  
     var iter =parseInt( document.getElementById("iter").value ); 
     var alpha = parseFloat( document.getElementById("alpha").value)  ; 
-    console.log(Tmax , Tmin , alpha , iter) ; 
     solution = FFD( items , capacite).slice(0)  ;  
     var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ; 
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 

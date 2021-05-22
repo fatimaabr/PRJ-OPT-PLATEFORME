@@ -8,7 +8,7 @@ from datetime import datetime
 import json
 
 eel.init('web')
-#****************************************ffd***************************************
+#****************************************FFD***************************************
 @eel.expose      # Expose this function to Javascript
 def ffd_py(c,w):
   temps_Debut_exec = datetime.now()
@@ -32,7 +32,7 @@ def ffd_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich1(n_bin,temps_exec) 
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #******************************FFI**********************************************
 @eel.expose
@@ -58,7 +58,7 @@ def ffi_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich2(n_bin,temps_exec) 
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #************************************BF*****************************************
 @eel.expose
@@ -91,7 +91,7 @@ def bf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich3(n_bin,temps_exec)
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #*************************************WF****************************************
 @eel.expose
@@ -117,7 +117,7 @@ def wf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich4(n_bin,temps_exec)
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #*************************************AWF***************************************
 @eel.expose
@@ -144,7 +144,7 @@ def awf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich5(n_bin,temps_exec)
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #***********************************NF******************************************
 @eel.expose
@@ -169,7 +169,7 @@ def nf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich6(n_bin,temps_exec)
-  return n_bin, bin_for_item
+  return n_bin, bin_for_item, temps_exec
 #*******************************************************************************
 #*************************************BRANCH AND BOUND**************************
 class Node:

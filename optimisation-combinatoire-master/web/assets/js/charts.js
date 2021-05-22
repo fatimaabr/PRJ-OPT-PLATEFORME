@@ -22,33 +22,45 @@ document.querySelector("#file-upload-1").onchange = async function(){
     }
     var solutions= [];
     var temps= []; 
-    var tabconfig =[];
+    var tab =[];
     console.log(items , capacite , nombre_items ) ; 
     for( i=0 ; i < items.length ; i++ ) {
         // execute les heuristiques et recuperer les resultats dans deux tableaux temps[][] et solutions[][] , pour chaque instances le reusltat de chaque heuristique ;   
-        //-------------------FFD-----------------  
-    tabconfig = [];  
-    solutions[0][i] = eel.ffd_py(capacite[i],items[i])(); //,tabconfig,temps[0][i]
+        //-------------------FFD----------------- 
+            tab =[];
+            tab  = await eel.ffd_py(capacite[i],items[i])();
+            solutions[0][i] = tab[0];
+            temps[0][i] = tab[1]; 
     //---------------------------------------
     //-------------------FFI-----------------
-    tabconfig = [];
-    solutions[1][i] = eel.ffi_py(capacite[i],items[i])(); //,tabconfig,temps[1][i]
+            tab =[];
+            tab  = await eel.ffi_py(capacite[i],items[i])();
+            solutions[1][i] = tab[0];
+            temps[1][i] = tab[1];
     //---------------------------------------
     //-------------------BF-----------------
-    tabconfig = [];
-    solutions[2][i] = eel.bf_py(capacite[i],items[i])(); //,tabconfig,temps[2][i]
+            tab =[];
+            tab  = await eel.bf_py(capacite[i],items[i])();
+            solutions[2][i] = tab[0];
+            temps[2][i] = tab[1];
     //---------------------------------------
     //-------------------WF-----------------
-    tabconfig = [];
-    solutions[3][i] = eel.wf_py(capacite[i],items[i])(); //,tabconfig,temps[3][i]
+            tab =[];
+            tab  = await eel.wf_py(capacite[i],items[i])();
+            solutions[3][i] = tab[0];
+            temps[3][i] = tab[1];
     //---------------------------------------
     //-------------------AWF-----------------
-       tabconfig = [];
-       solutions[4][i] = eel.awf_py(capacite[i],items[i])(); //,tabconfig,temps[4][i]
+            tab =[];
+            tab  = await eel.awf_py(capacite[i],items[i])();
+            solutions[4][i] = tab[0];
+            temps[4][i] = tab[1];
     //---------------------------------------
     //-------------------NF-----------------
-       tabconfig = [];
-       solutions[5][i] = eel.nf_py(capacite[i],items)(); //,tabconfig,temps[5][i] 
+            tab =[];
+            tab  = await eel.nf_py(capacite[i],items[i])();
+            solutions[5][i] = tab[0];
+            temps[5][i] = tab[1];
     //---------------------------------------
     }
        

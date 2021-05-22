@@ -33,7 +33,7 @@ def ffd_py(c,w):
   print("Exec time :",temps_exec)
   eel.jsaffich1(n_bin,temps_exec)
   tab = [n_bin,temps_exec,bin_for_item] 
-  return n_bin,temps_exec,bin_for_item
+  return tab
 #*******************************************************************************
 #******************************FFI**********************************************
 @eel.expose
@@ -59,7 +59,8 @@ def ffi_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich2(n_bin,temps_exec) 
-  return n_bin, bin_for_item, temps_exec
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return tab
 #*******************************************************************************
 #************************************BF*****************************************
 @eel.expose
@@ -92,7 +93,8 @@ def bf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich3(n_bin,temps_exec)
-  return n_bin, bin_for_item, temps_exec
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return tab
 #*******************************************************************************
 #*************************************WF****************************************
 @eel.expose
@@ -118,7 +120,8 @@ def wf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich4(n_bin,temps_exec)
-  return n_bin, bin_for_item, temps_exec
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return tab
 #*******************************************************************************
 #*************************************AWF***************************************
 @eel.expose
@@ -145,7 +148,8 @@ def awf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich5(n_bin,temps_exec)
-  return n_bin, bin_for_item, temps_exec
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return tab
 #*******************************************************************************
 #***********************************NF******************************************
 @eel.expose
@@ -170,7 +174,8 @@ def nf_py(c,w):
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
   eel.jsaffich6(n_bin,temps_exec)
-  return n_bin, bin_for_item, temps_exec
+  tab = [n_bin,temps_exec,bin_for_item] 
+  return tab
 #*******************************************************************************
 #*************************************BRANCH AND BOUND**************************
 class Node:
@@ -590,11 +595,100 @@ def agpy(capacite,objets):
     print("Exec time :",t)
     eel.jsaffich(solution.best_solution.num_bins,t)
     #print(total_iter)
-
-
 #*******************************************************************************
 
-#*******************************************************************************
+#***********************************RT******************************************
+def bon_voisins(conf,ind,max_bin,taboue,L):
+  V = []
+  for i in range(max_bin):
+    if i!=conf[ind]:
+      v = conf.copy()
+      v[ind]=i
+      if verif(v) and ((v not in taboue) or len(taboue)== L or eval(v) < max_bin):
+        if len(taboue)== 10: taboue.pop()
+        return [v]
+        V.append(v)
+  return V  
+#-----------------------------------------------------------------------------------
+class MoveOperator:
+    @staticmethod
+    def apply(items, choices):
+        """
+        Applies the operator to the given items.
+        :param items: The items to which the operator should be applied.
+        :param choices: Items that the operator can inject into the items if necessary.
+        :return: The list of items after the operator was applied.
+        """
+        return items
+
+
+class Remove(MoveOperator):
+    @staticmethod
+    def apply(items, choices):
+        """
+        Removes one or more of the items from the items list. Guarantees that there will always be at least one item
+        left in the list of items.
+        :param items: The items to which the operator should be applied.
+        :param choices: Items that the operator can inject into the items if necessary.
+        :return: The list of items after the operator was applied.
+        """
+        num_removals = random.randrange(len(items))
+        for _ in range(num_removals):
+            to_remove = random.randrange(len(items))
+            items = items[:to_remove] + items[to_remove + 1:]
+        return items
+
+
+class Add(MoveOperator):
+    @staticmethod
+    def apply(items, choices):
+        """
+        Adds one or more randomly picked items from the choices list to the list of items.
+        :param items: The items to which the operator should be applied.
+        :param choices: Items that the operator can inject into the items if necessary.
+        :return: The list of items after the operator was applied.
+        """
+        num_inserts = random.randrange(len(items) + 1)
+        for _ in range(num_inserts):
+            to_insert = random.randrange(len(items))
+            items = items[:to_insert] + random.choice(choices) + items[to_insert:]
+        return items
+
+
+class Change(MoveOperator):
+    @staticmethod
+    def apply(items, choices):
+        """
+        Changes one or more of the items in the item list to a randomly picked item in the choices list.
+        :param items: The items to which the operator should be applied.
+        :param choices: Items that the operator can inject into the items if necessary.
+        :return: The list of items after the operator was applied.
+        """
+        num_changes = random.randrange(len(items)+1)
+        items = list(items)
+        for _ in range(num_changes):
+            to_change = random.randrange(len(items))
+            items[to_change] = random.choice(choices)
+        return "".join(items)
+
+
+class Swap(MoveOperator):
+    @staticmethod
+    def apply(items, choices):
+        """
+        Swaps one or more of the items with another one in the item list.
+        :param items: The items to which the operator should be applied.
+        :param choices: Items that the operator can inject into the items if necessary.
+        :return: The list of items after the operator was applied.
+        """
+        num_swaps = random.randrange(len(items))
+        items = list(items)
+        for _ in range(num_swaps):
+            idx1, idx2 = random.randrange(len(items)), random.randrange(len(items))
+            items[idx1], items[idx2] = items[idx2], items[idx1]
+        return "".join(items)
+
+
 #*******************************************************************************
 
 

@@ -33,18 +33,19 @@ var solution = [] ;
             document.getElementById("time2").innerHTML ="" ; 
         
         }
+        //just for test
         async function run() {
-        
-            let val = await eel.ffd_py(capacite,items)(run2);
-            //console.log(val + " from Python")
-         }
-         eel.expose(run2)
-         async function run2(a,b) {
-            
+            var tab =[];
+            tab  = await eel.ffd_py(capacite,items)();
+            var a = tab[0];
+            var b = tab[1];
+            var c = [];
+            c = tab[2];
+            console.log(a + " from Python")
             console.log(b + " from Python")
+            console.log(c + " from Python")
          }
          
-
         eel.expose(heurisjs);
         function heurisjs(){
            

@@ -596,19 +596,25 @@ class Chromosome:
 
 @eel.expose   
 def agpy(items,capacite):
+    #print("items+++",items)
     temps_Debut_exec = datetime.now()
     objets = [Item(size=i) for i in items]
     solution = GeneticAlgorithm(capacite, objets,POPULATION_SIZE = 50,MAX_GENERATIONS = 250,MAX_NO_CHANGE = 50 ,TOURNAMENT_SIZE = 20 ,MUTATION_RATE = 0.3 ,CROSSOVER_RATE = 0.6, population=None)
-
+    config = []
     total_iter, x, best_conf = solution.run()
     temps_apres_exec= datetime.now()
+    print("items+++",items)
     temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
     beConf = [[item.getSize(),i] for i,bin in enumerate(best_conf) for item in bin.getItems()]
     print(beConf)
     print(solution.best_solution.num_bins)
     print(temps_exec)
+    for i in beConf: 
+        print("affectation :",i)
+        config.append(i[1])
+    print("config",config)
     eel.jsaffich(solution.best_solution.num_bins,temps_exec)
-    tab =[solution.best_solution.num_bins,temps_exec,beConf]
+    tab =[solution.best_solution.num_bins,temps_exec,config]
     return tab
 
 #*******************************************************************************
@@ -889,12 +895,11 @@ def tspy( capacity, items):
     total_iterations, stagnation, combination = thing.run()
     execution_time = datetime.now() - start_time     
     beConf = [[item.getSize(),i] for i,bin in enumerate(thing.bins) for item in bin.getItems()]
-    print(len(thing.bins), beConf,execution_time)
+    print(len(thing.bins),beConf,execution_time)
     tab = [len(thing.bins),execution_time.total_seconds(),beConf]
     return tab
-
 
 # capacity,items = instance_v2('instances/Moyenne/T_Petite_100/N2W4B1R0.txt')
 # TS(capacity,items)
 #*******************************************************************************
-eel.start('home.html', size=(1000, 600))
+eel.start('ag.html', size=(1000, 600))

@@ -203,6 +203,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var p = 0 ; 
      
     var list_bins  = Array.from(set);
+    console.log("++++listbins+++"+list_bins);
     var weights = new Array(list_bins.length); 
     weights.fill(0) ;
     var affectation = new Array( RS_sol[0]) ; 

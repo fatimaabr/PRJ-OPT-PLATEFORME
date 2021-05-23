@@ -26,7 +26,7 @@ async function loadFile(file) {
     }
     document.getElementById("Tmax").value =1000 ; 
     document.getElementById("Tmin").value =0.1 ; 
-    document.getElementById("iter").value =20 ; 
+    document.getElementById("iter").value =50 ; 
     document.getElementById("alpha").value =0.95 ; 
     document.getElementById("sol_bins").innerHTML = "" ; 
     document.getElementById("time").innerHTML ="" ; 

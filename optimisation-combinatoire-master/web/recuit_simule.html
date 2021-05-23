@@ -164,7 +164,10 @@
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
 					
-						<input type="file" size="60" class="col-sm-6" id="instance" onchange="loadFile(this.files[0])">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="inputGroupFile03" onchange="loadFile(this.files[0])">
+							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+						</div>
 					
 					</div>
                     <div class="card-body table-border-style">
@@ -274,7 +277,7 @@
 												<th>Objet</th>
 											</tr>
 										</thead>
-										<tbody class="body_objets">
+										<tbody class="body_objets2">
 										</tbody>
 									</table>
 								</div>

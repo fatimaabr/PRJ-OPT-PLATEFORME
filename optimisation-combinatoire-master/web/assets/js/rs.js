@@ -179,7 +179,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     /*"nombre d'objets " : items.length , "evaluation RS " : eval_fct(best) , "nombre des bins RS" : nb_bins_RS ,
               "evaluation FDD " : eval_fct(sol) , "nombre des bins FDD" : nb_bins_FDD  
               */
-    return  [ nb_bins_RS , elapsedTime] ; 
+    return  [ nb_bins_RS , elapsedTime,best] ; 
     }
 
 
@@ -202,7 +202,17 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ; 
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
+    console.log("best = "+RS_sol[2]);
+    loadtable(RS_sol[2]);
     
 }
+async function loadtable(tableau){
+    var obj = $(".body_objets2")[0] ;
+    for(var i = 0 ; i <tableau.length ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+        obj.append (tr) ; 
+    }
+ }
 
 

@@ -1,12 +1,13 @@
 from __future__ import unicode_literals
 import io
+from sys import path
 import eel
 import time
 import random
 from random import shuffle
 from datetime import datetime
 import json
-
+#############
 eel.init('web')
 #****************************************FFD***************************************
 @eel.expose      # Expose this function to Javascript
@@ -270,22 +271,22 @@ def branchAndBound(w, c):
                 print("Exec time :",temps_exec)
                 eel.jsaffich(minBins,temps_exec)
                 tab = [minBins,temps_exec,conf_opt]
-                return tab
-                
+                return tab                
 #*******************************************************************************
 #****************************************AG*************************************
-# coding=utf-8
-#from heuristics import BestFit, FirstFit, NextFit, WorstFit
-
 class Item:
-    def __init__(self, size):
+    def __init__(self,size):
         self.size = size
-
+    def getSize(self):
+        return self.size
 
 class Bin:
     def __init__(self, capacity):
         self.capacity = capacity
         self.items = []
+
+    def getItems(self):
+        return self.items
 
     def add_item(self, new_item):
         """
@@ -497,14 +498,14 @@ class GeneticAlgorithm:
             self.population = new_generation
             prev_best = self.best_solution
             # Evaluate fitness values
-            self.best_solution = self.update_individuals(self.population)
+            self.best_solution,best_conf = self.update_individuals(self.population)
             # Check if any improvement has happened.
             if not prev_best or prev_best.fitness == self.best_solution.fitness:
                 num_no_change += 1
             else:
                 num_no_change = 0
             current_iteration += 1
-        return current_iteration, num_no_change
+        return current_iteration, num_no_change,best_conf
 
     def mutate(self, chromosome):
         """
@@ -541,7 +542,7 @@ class GeneticAlgorithm:
             solution = individual.generate_solution(self.items)
             individual.num_bins = len(solution)
             individual.fitness = sum(b.fitness() for b in solution) / len(solution)
-        return max(self.population, key=lambda x: x.fitness)
+        return max(self.population, key=lambda x: x.fitness),solution
 
     def select_parent(self):
         """
@@ -592,29 +593,23 @@ class Chromosome:
             h = self.pattern[idx % pattern_length]
             solution = self.heuristic_map[h].apply(item, solution)
         return solution
-#-------------------------------------------------------------------------------
-#from algorithme_genetique import GeneticAlgorithm
-#from item import Item   
-@eel.expose
-def agpy(capacite,objets):
-    objets = [Item(size=int(i)) for i in objets]
-    shuffle(objets)
-    #appliquer l'algorithme génétique et calculer le temps d'execuction
-    solution = GeneticAlgorithm(capacite, objets)
+
+@eel.expose   
+def agpy(items,capacite):
     temps_Debut_exec = datetime.now()
-    total_iter, x = solution.run()
+    objets = [Item(size=i) for i in items]
+    solution = GeneticAlgorithm(capacite, objets,POPULATION_SIZE = 50,MAX_GENERATIONS = 250,MAX_NO_CHANGE = 50 ,TOURNAMENT_SIZE = 20 ,MUTATION_RATE = 0.3 ,CROSSOVER_RATE = 0.6, population=None)
+
+    total_iter, x, best_conf = solution.run()
     temps_apres_exec= datetime.now()
     temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
-    #afficher les résultats de l'algorithme
-    t = str(temps_exec)
+    beConf = [[item.getSize(),i] for i,bin in enumerate(best_conf) for item in bin.getItems()]
+    print(beConf)
     print(solution.best_solution.num_bins)
-    print("Exec time :",t)
-    eel.jsaffich(solution.best_solution.num_bins,t)
-    #print(total_iter)
+    print(temps_exec)
+    eel.jsaffich(solution.best_solution.num_bins,temps_exec)
+    tab =[solution.best_solution.num_bins,temps_exec,beConf]
+    return tab
+
 #*******************************************************************************
-
-
-
-
-
 eel.start('home.html', size=(1000, 600))

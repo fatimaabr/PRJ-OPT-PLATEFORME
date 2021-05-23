@@ -165,7 +165,10 @@
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
 					
-						<input type="file" size="60" class="col-sm-6" id="instance" onchange="loadFile(this.files[0])">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="inputGroupFile03" onchange="loadFile(this.files[0])">
+							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+						</div>
 					
 					</div>
                     <div class="card-body table-border-style">
@@ -284,7 +287,7 @@
 												<th>Objet</th>
 											</tr>
 										</thead>
-										<tbody class="body_objets">
+										<tbody class="body_objets2">
 										</tbody>
 									</table>
 								</div>
@@ -331,6 +334,7 @@
 				tr.innerHTML=" <td> " +i + " </td> <td> " + items[i]+ "</td>" ; 
 				objets.append (tr) ; 
 			}
+			
 			document.getElementById("POPSZ").value =50 ; 
 			document.getElementById("MAXGEN").value =250 ; 
 			document.getElementById("MAXNCHG").value =50 ; 
@@ -342,13 +346,27 @@
 			document.getElementById("time").innerHTML ="" ; 
 			 
 		}
-		function agjs(){
-			eel.agpy(capacite,items);
-			
+		async function loadtable(tableau){
+        var obj = $(".body_objets2")[0] ;
+        for(var i = 0 ; i <tableau.length ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+        obj.append (tr) ; 
+    }
+ }
+          async function agjs(){
+			//eel.agpy(capacite,items);
+			var tab =[];
+            tab  = await eel.agpy(items,capacite)();
+            var c = [];
+            c = tab[2];
+            console.log(" configuration : "+c);
+            loadtable(c);
+			jsaffich(tab[0],tab[1]);
 		}
 		
 		eel.expose(jsaffich); // Expose this function to Python
-		function jsaffich(a,t) {
+		async function jsaffich(a,t) {
 			document.getElementById("sol_bins").innerHTML = a ; 
 			document.getElementById("time").innerHTML = t + " secondes" ;
 		}

@@ -36,8 +36,7 @@
          
     }
     function agjs(){
-        eel.agpy(capacite,items);
-        
+        eel.agpy(items,capacite);
     }
     
     eel.expose(jsaffich); // Expose this function to Python

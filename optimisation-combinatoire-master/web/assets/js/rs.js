@@ -15,7 +15,8 @@ async function loadFile(file) {
     var nb = $("#NB")[0] ; 
     var c = $("#capacite")[0] ; 
     var poids = $("#Poids")[0] ; 
-
+    var aff = $('.affectation')[0] ; 
+    aff.innerHTML='' ; 
     poids.innerHTML = Math.min (...items) + " < p < " + Math.max (...items) ; 
     c.innerHTML = capacite ; 
     nb.innerHTML = nombre_items ; 
@@ -201,7 +202,8 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ;
     var set =  new Set(RS_sol[2])   ;
     var p = 0 ; 
-     
+    var aff = $('.affectation')[0] ; 
+    aff.innerHTML='' ; 
     var list_bins  = Array.from(set);
     var weights = new Array(list_bins.length); 
     weights.fill(0) ;
@@ -219,11 +221,9 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
         }
         
     }
-  console.log(weights) ; 
-    var aff = $('.affectation')[0] ; 
     for(i = 0 ; i<affectation.length ; i++ ) {
         var elem = document.createElement('tr') ; 
-        p = ( weights[i]*100 ) / capacite ; 
+        p = (( weights[i]*100 ) / capacite ).toFixed(3) ; 
         elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "25%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
         aff.append(elem) ;  
 

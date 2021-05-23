@@ -26,7 +26,7 @@ async function loadFile(file) {
     }
     document.getElementById("Tmax").value =1000 ; 
     document.getElementById("Tmin").value =0.1 ; 
-    document.getElementById("iter").value =50 ; 
+    document.getElementById("iter").value =20 ; 
     document.getElementById("alpha").value =0.95 ; 
     document.getElementById("sol_bins").innerHTML = "" ; 
     document.getElementById("time").innerHTML ="" ; 
@@ -179,7 +179,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     /*"nombre d'objets " : items.length , "evaluation RS " : eval_fct(best) , "nombre des bins RS" : nb_bins_RS ,
               "evaluation FDD " : eval_fct(sol) , "nombre des bins FDD" : nb_bins_FDD  
               */
-    return  [ nb_bins_RS , elapsedTime] ; 
+    return  [ nb_bins_RS , elapsedTime , best ] ; 
     }
 
 
@@ -198,7 +198,36 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var iter =parseInt( document.getElementById("iter").value ); 
     var alpha = parseFloat( document.getElementById("alpha").value)  ; 
     solution = FFD( items , capacite).slice(0)  ;  
-    var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ; 
+    var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ;
+    var set =  new Set(RS_sol[2])   ;
+    var p = 0 ; 
+     
+    var list_bins  = Array.from(set);
+    var weights = new Array(list_bins.length); 
+    weights.fill(0) ;
+    var affectation = new Array( RS_sol[0]) ; 
+    for(var k = 0 ; k< RS_sol[0] ; k++ ) {
+        affectation[k] = [] ;  
+
+    }
+    for ( var i= 0 ; i < affectation.length ; i++ ) {
+        for(var j = 0 ; j< RS_sol[2].length; j++) {
+            if(RS_sol[2][j]==list_bins[i]) {
+                affectation[i].push(j) ; 
+                weights[i] += items[j] ; 
+            }
+        }
+        
+    }
+  console.log(weights) ; 
+    var aff = $('.affectation')[0] ; 
+    for(i = 0 ; i<affectation.length ; i++ ) {
+        var elem = document.createElement('tr') ; 
+        p = ( weights[i]*100 ) / capacite ; 
+        elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "25%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
+        aff.append(elem) ;  
+
+    }
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
     

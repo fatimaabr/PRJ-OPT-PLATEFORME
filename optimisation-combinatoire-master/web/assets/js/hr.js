@@ -116,7 +116,7 @@ var solution = [] ;
                 }
             };
             onRowClick("my-table-id", function (row){
-                $("#table").remove();
+               // $("#table").remove();
             });
         //------------------------------------------------------------------------
         }

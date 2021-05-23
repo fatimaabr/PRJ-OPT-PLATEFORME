@@ -230,7 +230,17 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     }
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
+    console.log("best = "+RS_sol[2]);
+    loadtable(RS_sol[2]);
     
 }
+async function loadtable(tableau){
+    var obj = $(".body_objets2")[0] ;
+    for(var i = 0 ; i <tableau.length ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+        obj.append (tr) ; 
+    }
+ }
 
 

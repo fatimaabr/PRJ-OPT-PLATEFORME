@@ -126,7 +126,7 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="home.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Recuit simulé</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Recherche Tabou</a></li>
                         </ul>
                     </div>
                 </div>
@@ -165,7 +165,10 @@
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
 					
-						<input type="file" size="60" class="col-sm-6" id="instance" onchange="loadFile(this.files[0])">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="inputGroupFile03" onchange="loadFile(this.files[0])">
+							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+						</div>
 					
 					</div>
                     <div class="card-body table-border-style">
@@ -191,29 +194,24 @@
 							<div class="table-responsive mt-5">
 								<table class="table table-hover">
 									<thead>
-										<tr>
-										  
-											<th >Température initiale</th>
-											<th>Température cible</th>
-											<th>Nombre d'itérations</th>
-											<th>Facteur de diminution</th>
+										<tr>  
+											<th >MAX COMBINATION LENGTH</th>
+											<th>MAX ITERATIONS</th>
+											<th>MAX NO CHANGE</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
+											<td>
+												<input type="number" class="form-control" id="maxc" value="0">
+											</td>
+											<td>
+												<input type="number" class="form-control" id="maxi" value="0">
+											</td>
+											<td>
+												<input type="number" class="form-control" id="maxn" value="0">
+											</td>
 											
-											<td>
-												<input type="number" class="form-control" id="Tmax" value="0">
-											</td>
-											<td>
-												<input type="number" class="form-control" id="Tmin" value="0">
-											</td>
-											<td>
-												<input type="number" class="form-control" id="iter" value="0">
-											</td>
-											<td>
-												<input type="number" class="form-control" id="alpha" value="0">
-											</td>
 										</tr>
 									  
 									</tbody>
@@ -223,14 +221,14 @@
 							
                     </div>
 					<div class="card-body d-flex justify-content-center">
-						<button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="run_recuit_simule()" >Résoudre le probléme </button>
+						<button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="tsjs()" >Résoudre le probléme </button>
 					</div>
                 </div>     
             </div>
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">
-						<h5>Solution Recuit simulé </h5>
+						<h5>Solution Recherche Tabou </h5>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive ">
@@ -261,6 +259,30 @@
 						</div>
 					</div>
 					<div class="card-footer "></div>
+
+					<!--------------------->
+					<div class="card-footer pt-3 table-aff">
+						<h6>L'affectation des objets</h6>
+						<table class="table table-hover mt-4 table-stripped " >
+							<thead>
+								<tr>
+									<th class="col-sm-2">Numéro du bin  </th>
+									<th class="col-sm-2">Les objets affectés  </th>
+									<th class="col-sm-2">Capacité remplie</th>
+									<th class="col-sm-6">Remplissage du Bin</th>
+								</tr>
+							</thead>
+							
+								<tbody class="affectation col-md-9" >
+								
+							  
+								</tbody>
+						
+						
+							
+						</table>
+					</div>
+					<!--------------------->
 				</div>
 			</div>
         </div>
@@ -274,7 +296,70 @@
     <script src="assets/js/ripple.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
 	<script src="assets/js/rs.js"></script>
+<script>
+var capacite = 0 ; 
+		var items = [] ; 
+		var nombre_items = 0 ; 
+		var solution = [] ; 
+		
+		async function loadFile(file) {
+			let text = await (new Response(file)).text();
+			var list= text.split('\n') ;
+			var list = list.map(function (x) { return parseInt(x); });
+			capacite =  list[1]  ; 
+			nombre_items = list[0] ; 
+			items = list.slice(2 , list[0]+2 ) ;
+			var objets = $(".body_objets")[0] ; 
+			var nb = $("#NB")[0] ; 
+			var c = $("#capacite")[0] ; 
+			var poids = $("#Poids")[0] ; 
+		
+			poids.innerHTML = Math.min (...items) + " < p < " + Math.max (...items) ; 
+			c.innerHTML = capacite ; 
+			nb.innerHTML = nombre_items ; 
+			for(var i = 0 ; i <items.length ; i++) {
+				var tr = document.createElement('tr') ; 
+				tr.innerHTML=" <td> " +i + " </td> <td> " + items[i]+ "</td>" ; 
+				objets.append (tr) ; 
+			}
+			
+			document.getElementById("maxc").value =10 ; 
+			document.getElementById("maxi").value =5000 ; 
+			document.getElementById("maxn").value =1000 ; 
 
+			document.getElementById("sol_bins").innerHTML = "" ; 
+			document.getElementById("time").innerHTML ="" ; 
+			 
+		}
+		async function loadtable(tableau){
+        var obj = $(".body_objets2")[0] ;
+        for(var i = 0 ; i <tableau.length ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
+        obj.append (tr) ; 
+    }
+ }
+          async function tsjs(){
+			//eel.agpy(capacite,items);
+			var tab =[];
+            tab  = await eel.tspy(capacite,items)();
+            var c = [];
+            c = tab[2];
+            console.log(" configuration : "+c);
+            loadtable(c);
+			jsaffich(tab[0],tab[1]);
+		}
+		
+		eel.expose(jsaffich); // Expose this function to Python
+		async function jsaffich(a,t) {
+			document.getElementById("sol_bins").innerHTML = a ; 
+			document.getElementById("time").innerHTML = t + " secondes" ;
+		}
+		
+		
+		
+
+</script>
 <!-- Apex Chart -->
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 

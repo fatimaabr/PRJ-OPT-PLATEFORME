@@ -17,57 +17,53 @@ document.querySelector("#file-upload-1").onchange = async function(){
         nombre_items[i] = list[0] ; 
         items[i] = list.slice(2 , list[0]+2 ) ;
 
-
-
     }
     var solutions= [];
-    var temps= []; 
-    var tab =[];
-    console.log(items , capacite , nombre_items ) ; 
+    var FFD = []
+    var FFI = [] ; 
+    var BF = [] ; 
+    var wf = [] ; 
+    var awf = [] ; 
+    var nf = [] ;  
+    var tab = [] ;  
+
     for( i=0 ; i < items.length ; i++ ) {
         // execute les heuristiques et recuperer les resultats dans deux tableaux temps[][] et solutions[][] , pour chaque instances le reusltat de chaque heuristique ;   
         //-------------------FFD----------------- 
-            tab =[];
-            tab  = await eel.ffd_py(capacite[i],items[i])();
-            var nbin =0;
-            var t =0;
-            nbin = tab[0];
-            t =  tab[1];
-            solutions[0][0] = nbin;
-            temps[0][0] = t; 
-            console.log("*******"+ nbin,t)
+
+            tab  = await ( eel.ffd_py(capacite[i],items[i])());
+            FFD[i] = tab[0];
+            
     //---------------------------------------
     //-------------------FFI-----------------
-            tab =[];
+            
             tab  = await eel.ffi_py(capacite[i],items[i])();
-            solutions[1][i] = tab[0];
-            temps[1][i] = tab[1];
+            FFI[i] = tab[0];
     //---------------------------------------
     //-------------------BF-----------------
             tab =[];
             tab  = await eel.bf_py(capacite[i],items[i])();
-            solutions[2][i] = tab[0];
-            temps[2][i] = tab[1];
+            BF[i] = tab[0];
     //---------------------------------------
     //-------------------WF-----------------
             tab =[];
             tab  = await eel.wf_py(capacite[i],items[i])();
-            solutions[3][i] = tab[0];
-            temps[3][i] = tab[1];
+            wf[i] = tab[0];
     //---------------------------------------
     //-------------------AWF-----------------
             tab =[];
             tab  = await eel.awf_py(capacite[i],items[i])();
-            solutions[4][i] = tab[0];
-            temps[4][i] = tab[1];
+            awf[i] = tab[0];
     //---------------------------------------
     //-------------------NF-----------------
             tab =[];
             tab  = await eel.nf_py(capacite[i],items[i])();
-            solutions[5][i] = tab[0];
-            temps[5][i] = tab[1];
+            nf[i] = tab[0];
     //---------------------------------------
     }
+
+    Bars(FFD , FFI , BF , wf  , nf , names) ; 
+
        
 }
 
@@ -208,9 +204,7 @@ $(function() {
 
 
 
-/*function for bar chart 1 */ 
-
-$(function() {
+function Bars(FFD , FFI , BF , wf   , nf , names) {
     var options = {
         chart: {
             height: 350,
@@ -220,42 +214,47 @@ $(function() {
             bar: {
                 horizontal: false,
                 columnWidth: '55%',
-                endingShape: 'rounded'
+                endingShape : 'rounded' , 
+               
             },
         },
         dataLabels: {
             enabled: false
         },
-        colors: ["#0e9e4a", "#4680ff", "#ff5252" , "#ffba57" , "#00acc1"],
+        colors: ["#0e9e4a", "#4680ff", "#ff5252" , "#ffba57" , "#00acc1" , "#9ccc65" , "#20c997"],
         stroke: {
             show: true,
             width: 2,
             colors: ['transparent']
         },
         series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63]
+            name: 'FFD',
+            data: FFD , 
         }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91]
+            name: 'FFI',
+            data: FFI , 
         }, {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52]
+            name: 'BF',
+            data: BF , 
         },
         {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52]
+            name: 'WF',
+            data: wf , 
         },
+      
         {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52]
+            name: 'NF',
+            data: nf , 
         }],
         xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            categories: names,
+            title: {
+                text: 'Instances'
+            }
         },
         yaxis: {
             title: {
-                text: '$ (thousands)'
+                text: 'Solutions'
             }
         },
         fill: {
@@ -265,7 +264,7 @@ $(function() {
         tooltip: {
             y: {
                 formatter: function(val) {
-                    return "$ " + val + " thousands"
+                    return val + " Bins"
                 }
             }
         }
@@ -275,7 +274,7 @@ $(function() {
         options
     );
     chart.render();
-});
+};
 
 
 

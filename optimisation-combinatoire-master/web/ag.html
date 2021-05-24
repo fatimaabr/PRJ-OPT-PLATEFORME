@@ -67,7 +67,7 @@
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Graphes</span></a>
+					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-bar-chart"></i></span><span class="pcoded-mtext">Comparaisons</span></a>
 					</li>
 				
 
@@ -142,7 +142,7 @@
                         <h5>Les objets</h5>
                     </div>
                     <div class="card-body table-border-style"> 
-                        <div class="table-responsive objects" style="height : 460px ">
+                        <div class="table-responsive objects" style="height : 480px ">
                             <table class="table table-hover"  >
                                 <thead>
                                     <tr>
@@ -166,7 +166,7 @@
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
 					
-						<div class="custom-file">
+						<div class="custom-file mb-3">
 							<input type="file" class="custom-file-input" id="inputGroupFile03" onchange="loadFile(this.files[0])">
 							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
 						</div>
@@ -273,31 +273,25 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer "></div>
-					<div class="col-md-9 " style ="margin: auto;" >  
-						<div class="card"  >
-							<div  class="card-footer pt-3 table-aff">
-								<h6>L'affectation des objets</h6>
-								<table class="table table-hover mt-4 table-stripped " >
-									<thead>
-										<tr>
-											<th class="col-sm-2">Numéro du bin  </th>
-											<th class="col-sm-2">Les objets affectés  </th>
-											<th class="col-sm-2">Capacité remplie</th>
-											<th class="col-sm-6">Remplissage du Bin</th>
-										</tr>
-									</thead>
-									
-										<tbody class="affectation col-md-9" >
-										
-									  
-										</tbody>
+					<div class="card-footer pt-3 table-aff">
+							<h6>L'affectation des objets</h6>
+							<table class="table table-hover mt-4 table-stripped text-center" >
+								<thead>
+									<tr>
+										<th style="width: 15% ;">Numéro du bin  </th>
+										<th style="width: 15% ;">Les objets affectés  </th>
+										<th style="width: 15% ;">Capacité remplie</th>
+										<th style="width: 55% ;">Remplissage du Bin</th>
+									</tr>
+								</thead>
 								
-								
+								<tbody class="affectation " >
 									
-								</table>
-							</div>
-						</div>
+								  
+								</tbody>
+						
+							</table>
+					
 					</div>
 				</div>
 			</div>

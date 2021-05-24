@@ -17700,11 +17700,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .btn.btn-icon {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     padding: 0;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 15px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -23946,6 +23946,7 @@ table.dataTable tbody > tr.selected th.select-checkbox:after {
     text-align: center;
 }
 
+
 div.dt-button-info {
     position: fixed;
     top: 50%;
@@ -24221,7 +24222,7 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
 
 
 .objects {
-    height : 445px  ; 
+    height : 465px  ; 
     overflow-y: scroll;
 }
 
@@ -24246,4 +24247,12 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     max-height: 500px ;
       overflow-y :scroll; 
     
+}
+
+#bar-chart-1 {
+    min-height: 100px ;
+}
+
+.spinner-border {
+    display: None ; 
 }

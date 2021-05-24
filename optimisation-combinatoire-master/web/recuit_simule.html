@@ -37,9 +37,7 @@
 					<li class="nav-item pcoded-hasmenu">
 					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Méthodes exactes</span></a>
 					    <ul class="pcoded-submenu">
-					        <li><a href="bnb.html">Branch And Bound</a></li>
-					        
-					      
+					        <li><a href="bnb.html">Branch And Bound</a></li>		      
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
@@ -51,7 +49,6 @@
 							<li><a href="heuristics.html">Worst-fit</a></li>
 							<li><a href="heuristics.html">Almost-worst-fit</a></li>
 							<li><a href="heuristics.html">Next-fit</a></li>
-					      
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
@@ -60,18 +57,12 @@
 					        <li><a href="recuit_simule.html">Recuit simulé </a></li>
 					        <li><a href="ag.html">Algorithme génétique</a></li>
 							<li><a href="rechtabou.html">Recherche Tabou</a></li>
-					      
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Graphes</span></a>
+					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-bar-chart"></i></span><span class="pcoded-mtext">Comparaisons</span></a>
 					</li>
-				
-
 				</ul>
-				
-			
-				
 			</div>
 		</div>
 	</nav>
@@ -163,7 +154,7 @@
 					<div class="card-header d-flex justify-content-between">
                         <h5 class="mt-2">Ajouter une instance </h5>
 					
-						<div class="custom-file">
+						<div class="custom-file mb-3">
 							<input type="file" class="custom-file-input" id="inputGroupFile03" onchange="loadFile(this.files[0])">
 							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
 						</div>
@@ -216,15 +207,15 @@
 												<input type="number" class="form-control" id="alpha" value="0">
 											</td>
 										</tr>
-									  
 									</tbody>
-									
 								</table>
 							</div>
-							
-                    </div>
+                    	</div>
 					<div class="card-body d-flex justify-content-center">
-						<button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="run_recuit_simule()" >Résoudre le probléme </button>
+						<button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="run_recuit_simule()" > 
+							<span class="spinner-border spinner-border-sm " role="status"></span>
+							<span class="button-text ml-2"> Résoudre le problème </span>
+						</button>
 					</div>
                 </div>     
             </div>
@@ -261,31 +252,27 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer pt-3 table-aff">
+					<div class="card-footer pt-3 table-aff ">
 						<h6>L'affectation des objets</h6>
-						<table class="table table-hover mt-4 table-stripped " >
+						<table class="table table-hover mt-4 table-stripped text-center" >
 							<thead>
 								<tr>
-									<th class="col-sm-2">Numéro du bin  </th>
-									<th class="col-sm-2">Les objets affectés  </th>
-									<th class="col-sm-2">Capacité remplie</th>
-									<th class="col-sm-6">Remplissage du Bin</th>
+									<th style="width: 15% ;">Numéro du bin  </th>
+									<th style="width: 15% ;">Les objets affectés  </th>
+									<th style="width: 15% ;">Capacité remplie</th>
+									<th style="width: 55% ;">Remplissage du Bin</th>
 								</tr>
 							</thead>
 							
-								<tbody class="affectation col-md-9" >
+								<tbody class="affectation " >
 								
 							  
 								</tbody>
-						
-						
-							
 						</table>
-					</div>
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 		<!-- [ Main Content ] end -->
     </div>
 </div>

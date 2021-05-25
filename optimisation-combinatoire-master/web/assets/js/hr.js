@@ -70,7 +70,7 @@ var solution = [] ;
             var aff = $('.affectation')[0] ; 
             for(i = 0 ; i<affectation.length ; i++ ) {
                 var elem = document.createElement('tr') ; 
-                p = ( weights[i]*100 ) / capacite ; 
+                p = (( weights[i]*100 ) / capacite).toFixed(4) ; 
                 elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "25%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
                 aff.append(elem) ;
 

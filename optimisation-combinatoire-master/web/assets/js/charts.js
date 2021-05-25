@@ -2,6 +2,7 @@
 
 document.querySelector("#file-upload-1").onchange = async function(){
     document.querySelector("#file-name").textContent ="loaded" ; 
+    document.querySelector("#bar-chart-1").innerHTML = '' ; 
     var text = "" ; 
     var names = [] ; 
     var list = [ ] ; 
@@ -269,6 +270,7 @@ function Bars(FFD , FFI , BF , wf   , nf , names) {
             }
         }
     }
+    document.querySelector("#bar-chart-1").innerHTML = '' ; 
     var chart = new ApexCharts(
         document.querySelector("#bar-chart-1"),
         options

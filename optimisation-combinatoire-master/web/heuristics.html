@@ -23,9 +23,6 @@
 	<nav class="pcoded-navbar menu-light ">
 		<div class="navbar-wrapper  ">
 			<div class="navbar-content scroll-div " >
-				
-			
-				
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-menu-caption">
 					    <label>Bin Packing</label>
@@ -57,7 +54,7 @@
 					    </ul>
 					</li>
 				    <li class="nav-item pcoded-hasmenu">
-					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Graphes</span></a>
+					    <a href="dashboard.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-bar-chart"></i></span><span class="pcoded-mtext">Comparaisons</span></a>
 					</li>
 
 				</ul>
@@ -131,7 +128,7 @@
                         <h5>Les objets</h5>
                     </div>
                     <div class="card-body table-border-style"> 
-                        <div class="table-responsive objects" style="height: 795px;">
+                        <div class="table-responsive objects" style="height: 860px;">
                             <table class="table table-hover" >
                                 <thead>
                                     <tr>
@@ -200,6 +197,7 @@
                                                 <th >Heuristique </th>
                                                 <th >Nombre des bins</th>
                                                 <th>Temps d'exécution</th>   
+                                                <th>Voir l'affectation</th>   
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -207,72 +205,86 @@
                                             <tr id="sol1">
                                                 <td>First-fit Decreasing</td>  
                                                 <td id="sol_bins1"></td>
-                                                <td id="time1"></td>    
+                                                <td id="time1"></td>  
+                                                <td class="text-center">
+                                                    <button type="button" class="btn  btn-icon btn-primary"><i class="feather icon-info"></i></button>
+                                                </td>  
                                             </tr>
                                             <tr id="sol2">
                                                 <td>First-fit Increasing</td>  
                                                 <td id="sol_bins2"></td>
                                                 <td id="time2"></td>    
+                                                <td class="text-center">
+                                                    <button type="button" class="btn  btn-icon btn-secondary"><i class="feather icon-info"></i></button>
+                                                </td>  
                                             </tr>
                                             <tr id="sol3">
                                                 <td>Best-fit</td>  
                                                 <td id="sol_bins3"></td>
-                                                <td id="time3"></td>    
+                                                <td id="time3"></td>  
+                                                <td class="text-center">  
+                                                <button type="button" class="btn  btn-icon btn-success"><i class="feather icon-info"></i></button>
+                                            </td>  
                                             </tr>
                                             <tr id="sol4">
                                                 <td>Worst-fit</td>  
                                                 <td id="sol_bins4"></td>
-                                                <td id="time4"></td>    
+                                                <td id="time4"></td>   
+                                                <td class="text-center"> 
+                                                <button type="button" class="btn  btn-icon btn-danger"><i class="feather icon-info"></i></button>
+                                            </td>  
                                             </tr>
                                             <tr id="sol5">
                                                 <td>Almost Worst-fit</td>  
                                                 <td id="sol_bins5"></td>
-                                                <td id="time5"></td>    
+                                                <td id="time5"></td>  
+                                                <td class="text-center">  
+                                                <button type="button" class="btn  btn-icon btn-warning"><i class="feather icon-info"></i></button>
+                                            </td>  
                                             </tr>
                                             <tr id="sol6">
                                                 <td>Next-fit</td>  
                                                 <td id="sol_bins6"></td>
-                                                <td id="time6"></td>    
+                                                <td id="time6"></td>
+                                                <td class="text-center">
+                                                <button type="button" class="btn  btn-icon btn-info"><i class="feather icon-info"></i></button>
+                                            </td>  
                                             </tr>
                                         </tbody>   
+                                    
                                     </table>
                                 </div>
                             </div>
-                            <div style ="margin: auto;width: 500px;" class="card-footer "></div>
-                            <div class="col-md-9 " style ="margin: auto;" >
-                                <div style ="width: 600px;" class="card"  >
-                                   
-                                    <div class="card-footer pt-3 table-aff">
-                                        <h6>L'affectation des objets</h6>
-                                        <table id="mytable" class="table table-hover mt-4 table-stripped " >
-                                            <thead>
-                                                <tr>
-                                                    <th class="col-sm-2">Numéro du bin  </th>
-                                                    <th class="col-sm-2">Les objets affectés  </th>
-                                                    <th class="col-sm-2">Capacité remplie</th>
-                                                    <th class="col-sm-6">Remplissage du Bin</th>
-                                                </tr>
-                                            </thead>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                    
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>L'affectation des objets</h6>
+                            </div>
+                          
+                            <div class="card-body">
+                                <div class="table-responsive table-aff "> 
+                                    <table id="mytable" class="table table-hover mt-4 table-stripped  text-center" >
+                                        <thead>
+                                            <tr>
+                                                    <th style="width: 15% ;">Numéro du bin  </th>
+                                                    <th style="width: 15% ;">Les objets affectés  </th>
+                                                    <th style="width: 15% ;">Capacité remplie</th>
+                                                    <th style="width: 65% ;">Remplissage du Bin</th>
+                                            </tr>
+                                        </thead>
                                             
-                                                <tbody id="tbody" class="affectation col-md-9" >
+                                        <tbody id="tbody" class="affectation col-md-9" >
                                                 
-                                              
-                                                </tbody>
-                                        
-                                        
-                                            
-                                        </table>
-                                    </div>
-                                        
-                                    </div>
-                                </div>
+                                        </tbody>      
+                                    </table>
+                                </div>          
                             </div>
                         </div>
-                
-                </div>
-                    <!--*****************-->
-                    
-                </div>     
+                    </div>
+                </div>  
             </div>
             
         <!-- [ Main Content ] end -->

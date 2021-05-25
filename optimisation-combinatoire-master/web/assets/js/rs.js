@@ -187,13 +187,12 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
 
 
 
-
-
 /* clic button run----------------------------------------------------------------------------------------------- */
 
 
  function run_recuit_simule() {
-
+    //$(".spinner-border")[0].style.display="inline-block" ; 
+    log('Updating DOM') ; 
     var Tmax = parseInt( document.getElementById("Tmax").value ); 
     var Tmin = parseFloat( document.getElementById("Tmin").value )  ;  
     var iter =parseInt( document.getElementById("iter").value ); 
@@ -205,7 +204,10 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var aff = $('.affectation')[0] ; 
     aff.innerHTML='' ; 
     var list_bins  = Array.from(set);
+<<<<<<< HEAD
     
+=======
+>>>>>>> f65a059df6ec024c44397f4b5cc20b4c9e36d0b6
     var weights = new Array(list_bins.length); 
     weights.fill(0) ;
     var affectation = new Array( RS_sol[0]) ; 
@@ -231,7 +233,6 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     }
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
-    console.log("best = "+RS_sol[2]);
     loadtable(RS_sol[2]);
     console.log("++++config+++"+RS_sol[2]);
 }
@@ -242,6 +243,7 @@ async function loadtable(tableau){
         tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
         obj.append (tr) ; 
     }
+    $(".spinner-border")[0].style.display="None" ; 
  }
 
 

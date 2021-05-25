@@ -59,6 +59,7 @@ def ffi_py(c,w):
   temps_apres_exec= datetime.now()
   temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
   print("Exec time :",temps_exec)
+  print("Config :",bin_for_item)
   eel.jsaffich2(n_bin,temps_exec) 
   tab = [n_bin,temps_exec,bin_for_item] 
   return tab
@@ -269,6 +270,9 @@ def branchAndBound(w, c):
                 temps_apres_exec= datetime.now()
                 temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
                 print("Exec time :",temps_exec)
+                print("BINS :",minBins)
+                print("items++++ :",w)
+                print("config**** :",conf_opt)
                 eel.jsaffich(minBins,temps_exec)
                 tab = [minBins,temps_exec,conf_opt]
                 return tab                
@@ -596,11 +600,12 @@ class Chromosome:
 
 @eel.expose   
 def agpy(items,capacite):
-    #print("items+++",items)
+    print("items+++",items)
     temps_Debut_exec = datetime.now()
     objets = [Item(size=i) for i in items]
     solution = GeneticAlgorithm(capacite, objets,POPULATION_SIZE = 50,MAX_GENERATIONS = 250,MAX_NO_CHANGE = 50 ,TOURNAMENT_SIZE = 20 ,MUTATION_RATE = 0.3 ,CROSSOVER_RATE = 0.6, population=None)
-    config = []
+    configbin = []
+    configitm = []
     total_iter, x, best_conf = solution.run()
     temps_apres_exec= datetime.now()
     print("items+++",items)
@@ -611,10 +616,13 @@ def agpy(items,capacite):
     print(temps_exec)
     for i in beConf: 
         print("affectation :",i)
-        config.append(i[1])
-    print("config",config)
+        configbin.append(i[1])
+    for j in beConf: 
+        configitm.append(j[0])
+    print("configbin",configbin)
+    print("configitm",configitm)
     eel.jsaffich(solution.best_solution.num_bins,temps_exec)
-    tab =[solution.best_solution.num_bins,temps_exec,config]
+    tab =[solution.best_solution.num_bins,temps_exec,configbin,configitm]
     return tab
 
 #*******************************************************************************
@@ -888,6 +896,8 @@ def tspy( capacity, items):
     MAX_COMBINATION_LENGTH=10
     MAX_ITERATIONS=5000
     MAX_NO_CHANGE = 1000
+    configbin = []
+    configitm = []
     objets = [Item(size=i) for i in items]
     thing = TabuSearch(capacity, objets)
     #print(thing.tabu_list)
@@ -895,11 +905,16 @@ def tspy( capacity, items):
     total_iterations, stagnation, combination = thing.run()
     execution_time = datetime.now() - start_time     
     beConf = [[item.getSize(),i] for i,bin in enumerate(thing.bins) for item in bin.getItems()]
-    print(len(thing.bins),beConf,execution_time)
-    tab = [len(thing.bins),execution_time.total_seconds(),beConf]
+    print(len(thing.bins),"config",beConf,execution_time)
+    for i in beConf: 
+        print("affectation :",i)
+        configbin.append(i[1])
+    for j in beConf: 
+        configitm.append(j[0])
+    tab = [len(thing.bins),execution_time.total_seconds(),configbin,configitm]
     return tab
 
 # capacity,items = instance_v2('instances/Moyenne/T_Petite_100/N2W4B1R0.txt')
 # TS(capacity,items)
 #*******************************************************************************
-eel.start('ag.html', size=(1000, 600))
+eel.start('home.html', size=(1000, 600))

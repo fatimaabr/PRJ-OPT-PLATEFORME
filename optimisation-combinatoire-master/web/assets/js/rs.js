@@ -205,7 +205,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var aff = $('.affectation')[0] ; 
     aff.innerHTML='' ; 
     var list_bins  = Array.from(set);
-    console.log("++++listbins+++"+list_bins);
+    
     var weights = new Array(list_bins.length); 
     weights.fill(0) ;
     var affectation = new Array( RS_sol[0]) ; 
@@ -233,7 +233,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
     console.log("best = "+RS_sol[2]);
     loadtable(RS_sol[2]);
-    
+    console.log("++++config+++"+RS_sol[2]);
 }
 async function loadtable(tableau){
     var obj = $(".body_objets2")[0] ;

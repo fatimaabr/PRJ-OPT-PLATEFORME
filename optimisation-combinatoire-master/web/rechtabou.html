@@ -45,16 +45,8 @@
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Heuristiques  </span></a>
-					    <ul class="pcoded-submenu">
-					        <li><a href="heuristics.html">First-fit decreasing</a></li>
-					        <li><a href="heuristics.html">First-fit increasing</a></li>
-							<li><a href="heuristics.html">Best-fit</a></li>
-							<li><a href="heuristics.html">Worst-fit</a></li>
-							<li><a href="heuristics.html">Almost-worst-fit</a></li>
-							<li><a href="heuristics.html">Next-fit</a></li>
-					      
-					    </ul>
+					    <a href="heuristics.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Heuristiques  </span></a>
+					    
 					</li>
 					<li class="nav-item pcoded-hasmenu">
 					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Méta heuristiques</span></a>
@@ -345,6 +337,7 @@ var capacite = 0 ;
             tab  = await eel.tspy(capacite,items)();
             var c = [];
             c = tab[2];
+			d = tab[3];
             console.log(" configuration : "+c);
             //loadtable(c);
 			jsaffich(tab[0],tab[1]);
@@ -364,7 +357,7 @@ var capacite = 0 ;
         for(var j = 0 ; j< tab[2].length; j++) {
             if(tab[2][j]==list_bins[i]) {
                 affectation[i].push(j) ; 
-                weights[i] += items[j] ; 
+                weights[i] += d[j] ; 
             }
         }
         

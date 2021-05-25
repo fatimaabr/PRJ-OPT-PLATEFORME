@@ -46,16 +46,7 @@
 					    </ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Heuristiques  </span></a>
-					    <ul class="pcoded-submenu">
-					        <li><a href="heuristics.html">First-fit decreasing</a></li>
-					        <li><a href="heuristics.html">First-fit increasing</a></li>
-							<li><a href="heuristics.html">Best-fit</a></li>
-							<li><a href="heuristics.html">Worst-fit</a></li>
-							<li><a href="heuristics.html">Almost-worst-fit</a></li>
-							<li><a href="heuristics.html">Next-fit</a></li>
-					      
-					    </ul>
+					    <a href="heuristics.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Heuristiques  </span></a>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
 					    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Méta heuristiques</span></a>
@@ -364,7 +355,9 @@
             tab  = await eel.agpy(items,capacite)();
             var c = [];
             c = tab[2];
+			d = tab[3];
             console.log(" configuration : "+c);
+			console.log(" items-configuration : "+d);
             //loadtable(c);
 			jsaffich(tab[0],tab[1]);
 
@@ -380,15 +373,17 @@
         affectation[k] = [] ;  
     }
     for ( var i= 0 ; i < affectation.length ; i++ ) {
-        for(var j = 0 ; j< tab[2].length; j++) {
-            if(tab[2][j]==list_bins[i]) {
-                affectation[i].push(j) ; 
-                weights[i] += items[j] ; 
+        for(var j = 0 ; j< c.length; j++) {
+            if(c[j]==list_bins[i]) {
+                affectation[i].push(j);
+                weights[i] += d[j] ; 
             }
         }
         
     }
-    console.log(weights) ; 
+    console.log("WEIGHTS :"+weights) ; 
+	console.log("CONFIG :"+tab[2]) ; 
+	console.log("ITEMS :"+items) ; 
     var aff = $('.affectation')[0] ; 
     for(i = 0 ; i<affectation.length ; i++ ) {
         var elem = document.createElement('tr') ; 
@@ -400,6 +395,7 @@
     document.getElementById("sol_bins").innerHTML = tab[0] ; 
     document.getElementById("time").innerHTML = tab[1] + " secondes" ; 
     console.log("best = "+tab[2]);
+	console.log("best.length = "+tab[2].length);
     //loadtable(tab[2]);
 		}
 		

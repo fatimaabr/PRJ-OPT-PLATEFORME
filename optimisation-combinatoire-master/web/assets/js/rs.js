@@ -143,7 +143,11 @@ function mouv_basseT (config) {
 
 /*--------------------------------------------------main algorithme-------------------------------------------------*/
 
-function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) { 
+function recuit_simule(item , c  , alpha , T_initial , T_cible , nb_it) { 
+    items = item ; 
+    capacite = c ;  
+    var sol = FFD( items , capacite).slice(0)  ;  
+    solution = sol ; 
     var startTime = new Date().getTime();
     var x = sol.slice(0) ; 
     var T = T_initial ;
@@ -175,11 +179,7 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
         T = T *alpha ; 
     }
     var nb_bins_RS = ( new Set(best)  ).size; 
-    var nb_bins_FDD = ( new Set(sol)  ).size; 
     var elapsedTime =  ( new Date().getTime() - startTime ) / 1000  ;
-    /*"nombre d'objets " : items.length , "evaluation RS " : eval_fct(best) , "nombre des bins RS" : nb_bins_RS ,
-              "evaluation FDD " : eval_fct(sol) , "nombre des bins FDD" : nb_bins_FDD  
-              */
     return  [ nb_bins_RS , elapsedTime , best ] ; 
     }
 
@@ -187,17 +187,15 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
 
 
 
-/* clic button run----------------------------------------------------------------------------------------------- */
+/* clic button run rs----------------------------------------------------------------------------------------------- */
 
 
  function run_recuit_simule() {
-    //$(".spinner-border")[0].style.display="inline-block" ; 
     var Tmax = parseInt( document.getElementById("Tmax").value ); 
     var Tmin = parseFloat( document.getElementById("Tmin").value )  ;  
     var iter =parseInt( document.getElementById("iter").value ); 
     var alpha = parseFloat( document.getElementById("alpha").value)  ; 
-    solution = FFD( items , capacite).slice(0)  ;  
-    var RS_sol = recuit_simule(solution , alpha , Tmax , Tmin , iter ) ;
+    var RS_sol = recuit_simule(items , capacite  , alpha , Tmax , Tmin , iter ) ;
     var set =  new Set(RS_sol[2])   ;
     var p = 0 ; 
     var aff = $('.affectation')[0] ; 
@@ -228,17 +226,13 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     }
     document.getElementById("sol_bins").innerHTML = RS_sol[0] ; 
     document.getElementById("time").innerHTML = RS_sol[1] + " secondes" ; 
-    loadtable(RS_sol[2]);
-    console.log("++++config+++"+RS_sol[2]);
 }
-async function loadtable(tableau){
-    var obj = $(".body_objets2")[0] ;
-    for(var i = 0 ; i <tableau.length ; i++) {
-        var tr = document.createElement('tr') ; 
-        tr.innerHTML=" <td> " +i + " </td> <td> " + tableau[i]+ "</td>" ; 
-        obj.append (tr) ; 
-    }
-    $(".spinner-border")[0].style.display="None" ; 
- }
 
 
+
+
+
+ /*--------------------------------------------chart rs rt bf ag------------------------------------------------------*/
+
+
+ 

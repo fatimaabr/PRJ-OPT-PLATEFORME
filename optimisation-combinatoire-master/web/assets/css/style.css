@@ -24249,7 +24249,7 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
     
 }
 
-#bar-chart-1 {
+#bar-chart-1 , #line-chart-1 , #line-chart-2{
     min-height: 100px ;
 }
 

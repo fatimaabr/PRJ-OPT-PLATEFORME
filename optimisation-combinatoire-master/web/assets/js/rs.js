@@ -192,7 +192,6 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
 
  function run_recuit_simule() {
     //$(".spinner-border")[0].style.display="inline-block" ; 
-    log('Updating DOM') ; 
     var Tmax = parseInt( document.getElementById("Tmax").value ); 
     var Tmin = parseFloat( document.getElementById("Tmin").value )  ;  
     var iter =parseInt( document.getElementById("iter").value ); 
@@ -204,10 +203,6 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     var aff = $('.affectation')[0] ; 
     aff.innerHTML='' ; 
     var list_bins  = Array.from(set);
-<<<<<<< HEAD
-    
-=======
->>>>>>> f65a059df6ec024c44397f4b5cc20b4c9e36d0b6
     var weights = new Array(list_bins.length); 
     weights.fill(0) ;
     var affectation = new Array( RS_sol[0]) ; 
@@ -226,8 +221,8 @@ function recuit_simule(sol , alpha , T_initial , T_cible , nb_it) {
     }
     for(i = 0 ; i<affectation.length ; i++ ) {
         var elem = document.createElement('tr') ; 
-        p = (( weights[i]*100 ) / capacite ).toFixed(3) ; 
-        elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "25%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
+        p = (( weights[i]*100 ) / capacite ).toFixed(2) ; 
+        elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
         aff.append(elem) ;  
 
     }

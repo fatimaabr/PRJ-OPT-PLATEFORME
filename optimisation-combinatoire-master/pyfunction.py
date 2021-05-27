@@ -917,4 +917,5 @@ def tspy( capacity, items):
 # capacity,items = instance_v2('instances/Moyenne/T_Petite_100/N2W4B1R0.txt')
 # TS(capacity,items)
 #*******************************************************************************
-eel.start('home.html', size=(1000, 600))
+#eel.start('home.html', size=(1000, 600))
+eel.start('home.html', mode='chrome-app', port=8080  )

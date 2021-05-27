@@ -24256,3 +24256,9 @@ div.dtk-focus-alt table.dataTable tbody th.focus {
 .spinner-border {
     display: None ; 
 }
+
+.bin-image img {
+    width: 100%;
+    height: 100%;
+
+}

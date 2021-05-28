@@ -123,6 +123,7 @@ var solution = [] ;
                 var table = document.getElementById(tableId),
                     rows = table.getElementsByTagName("tr"),
                     i;
+                    
                // console.log("  rows.length ==="+rows.length+"&&[5]")
                 for (i = 0; i < rows.length; i++) {
                    // console.log("iiiiiiiiiiiiii"+i);
@@ -130,17 +131,42 @@ var solution = [] ;
                         return function () {
                             var k = configs[this.rowIndex-1];
                             //obj.innerHTML="";
+                            //this.style.background = "";
                             var Table = document.getElementById("tbody");
                             Table.innerHTML = "";
                             loadtable(k);
                             console.log("++++++++++ROW"+this.rowIndex);
+                            //$(this).css('background', '#B3D9DF');
+                            switch(this.rowIndex) {
+                                case 1:
+                                    $(this).css('background', '#B3D9DF');
+                                  break;
+                                case 2:
+                                    $(this).css('background', '#FCFF9E');
+                                  break;
+                                  case 3:
+                                    $(this).css('background', '#C7E9FF');
+                                  break;
+                                  case 4:
+                                    $(this).css('background', '#D7F4C1');
+                                  break;
+                                  case 5:
+                                    $(this).css('background', '#FFE197');
+                                  break;
+                                  case 6:
+                                    $(this).css('background', '#DBDCC7');
+                                  break;
+                                default:
+                                    $(this).css('background', 'transparent');
+                              }
+                            
                             callback(row);
                         };
                     }(table.rows[i]);
                 }
             };
             onRowClick("my-table-id", function (row){
-               // $("#tbody").remove();
+               
             });
         //------------------------------------------------------------------------
         }

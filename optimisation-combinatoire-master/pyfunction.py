@@ -214,6 +214,9 @@ def branchAndBound(w, c):
         conf = [-1] * n
         conf_opt = []
         for k in range(len(w)):
+            print("*******************************")
+            print(type(w[k]),type(c))
+            print("*******************************")
             if w[k] > c:
                 print("les poids des objets ne doivent pas dépasser la capacité du bin")
                 return 0
@@ -918,4 +921,4 @@ def tspy( capacity, items):
 # TS(capacity,items)
 #*******************************************************************************
 #eel.start('home.html', size=(1000, 600))
-eel.start('home.html', mode='chrome-app', port=8080  )
+eel.start('home.html',size=(1000, 600)) #mode='chrome-app', port=8080 

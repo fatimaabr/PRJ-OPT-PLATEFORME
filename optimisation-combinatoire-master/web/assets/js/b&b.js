@@ -29,6 +29,38 @@ async function loadFile(file) {
      
 
 }
+
+async function addmanual(){
+    cell1 = document.getElementById('capacite');
+    cell1.contentEditable = true;
+    
+    cell2 = document.getElementById('NB');
+    cell2.contentEditable = true;
+
+    var cap = cell1.innerHTML;
+    console.log("+++++++++++++++++++++++"+cap);
+    var nb = cell2.innerHTML;
+    console.log("----------------------"+nb);
+    //-------------------------------------------------------------------------
+    var intcap = parseInt(cap, 10);
+    var intnb = parseInt(nb, 10);
+    console.log("------------INT----------"+intcap + intnb);
+    //-------------------------------------------------------------------------
+    capacite =  intcap ; 
+    nombre_items = intnb ;
+    var objets = $(".body_objets")[0] ;
+    objets.innerHTML = "";
+    for(var i = 0 ; i <nombre_items ; i++) {
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +i + " </td> <td contentEditable = true> " + 0+ "</td> " ; //
+        objets.append (tr) ; 
+    }
+    //console.log("ITEMS"+items);
+
+    //--------------------------------------------------------------------------
+}
+    
+
 async function loadtable(tableau){
     var obj = $(".body_objets2")[0] ;
     for(var i = 0 ; i <tableau.length ; i++) {
@@ -38,6 +70,25 @@ async function loadtable(tableau){
     }
  }
 async function bnbjs(){
+    console.log("%%%capacite="+capacite);
+    console.log("%%%items="+items);
+    if (items.length == 0){
+    var table = document.getElementById('objtab');
+    for (var r = 0, n = table.rows.length; r < n; r++) { 
+            items[r] = parseInt(table.rows[r].cells[1].innerHTML, 10);
+            console.log(table.rows[r].cells[1].innerHTML);
+    }
+    //console.log("ITEMS+++++>"+items);
+    items.shift();
+    console.log("ITEMS after shift+++++>"+items);
+    //--------------------------------------------------------------------------
+     var poids = $("#Poids")[0] ; 
+     poids.innerHTML = Math.min (...items) + " < p < " + Math.max (...items) ;
+}
+document.getElementById('capacite').contentEditable = false;
+document.getElementById('NB').contentEditable = false;   
+     console.log("%%% typeofitems="+typeof items);
+     console.log("%%% typeofcapacity="+typeof capacite);
     //eel.branchAndBound(items,capacite);
             var tab =[];
             tab  = await eel.branchAndBound(items,capacite)();
@@ -71,12 +122,14 @@ async function bnbjs(){
         var elem = document.createElement('tr') ; 
         p = ( weights[i]*100 ) / capacite ; 
         elem.innerHTML = "	<td > " + i + " </td> <td > " + affectation[i] + "  </td> <td>  " +weights[i]+"  </td>  <td class='pr-4'><div class='progress mr-4 mt-2' style='height: 20px;'><div class='progress-bar' role='progressbar' style='width: " +p + "25%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'> "+p+" %</div></div></td>" ;
-        aff.append(elem) ; 
-            
+        aff.append(elem) ;         
 }
 }
+
+
 eel.expose(jsaffich); // Expose this function to Python
 function jsaffich(a,t) {
     document.getElementById("sol_bins").innerHTML = a ; 
     document.getElementById("time").innerHTML = t + " secondes" ;
 }
+

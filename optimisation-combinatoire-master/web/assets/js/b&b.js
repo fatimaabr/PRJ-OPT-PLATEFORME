@@ -133,3 +133,19 @@ function jsaffich(a,t) {
     document.getElementById("time").innerHTML = t + " secondes" ;
 }
 
+
+$('.add_items')[0].addEventListener('click', function(ev) {
+    var item = parseInt ($('.input_items')[0].value) ;
+    if( isNaN(item))  {
+        alert('Objet Vide !') ; 
+    }else {
+        items.push(item) ;  
+        var objets = $(".body_objets")[0] ;
+        var tr = document.createElement('tr') ; 
+        tr.innerHTML=" <td> " +( ( items.length )-1 )+ " </td> <td> " + item + "</td>" ; 
+        objets.append (tr) ;  
+    
+        
+    }
+}) ; 
+

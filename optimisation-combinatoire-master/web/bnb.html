@@ -112,8 +112,17 @@
         <div class="row">
 			<div class="col-md-3 " >
 				<div class="card" >
-                    <div class="card-header">
+                    <div class="card-header ">
                         <h5>Les objets</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <input type="number" style="width: 80%; height: 35px;" class="m-1 input_items" placeholder="Objet...">
+                            <button class="btn  btn-icon btn-warning m-1 add_items" style="border-radius: 5px;">
+                                <i class="feather icon-plus" style="font-size: 30px ; border : none"></i>
+                            </button>
+                               
+                            </a>
+                        </div>
+                       
                     </div>
                     <div class="card-body table-border-style"> 
                         <div class="table-responsive objects" style ="height: 600px;">
@@ -158,16 +167,16 @@
                                 </thead>
                                 <tbody>
                                     <tr> 
-                                        <td id="capacite" contentEditable = true placeholder="text"></td>
-                                        <td id="NB" contentEditable = true></td>
+                                        <td id="capacite" contentEditable = true placeholder="text">0</td>
+                                        <td id="NB" contentEditable = true> 0 </td>
                                         <td id="Poids">Vide</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>	
-                        <div class="card-body d-flex justify-content-around">
-                            <button type="button" class="btn  btn-warning col-sm-5" onclick="addmanual()">Remplir la table des objets </button>
-                            <button type="button" class="btn  btn-success col-sm-5" id="btn_run_RS" onclick="bnbjs()" >Résoudre le probléme </button>
+                        <div class="card-body d-flex justify-content-center">
+                            
+                            <button type="button" class="btn  btn-success col-sm-6" id="btn_run_RS" onclick="bnbjs()" >Résoudre le probléme </button>
                         </div>		
 					</div>
 							

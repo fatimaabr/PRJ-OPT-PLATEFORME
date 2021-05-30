@@ -181,12 +181,11 @@ def nf_py(c,w):
 #*******************************************************************************
 #*************************************BRANCH AND BOUND**************************
 class Node:
-    def __init__(self, poidrest, niveau, numbin,conf):
+    def __init__(self, poidrest, niveau, numbin,config):
         self.poidrest = poidrest    #Tableau des poids restants pour chaque boîte
-        self.niveau = niveau        #Le niveau du noeud dans l'arbre
+        self.niveau = niveau              #Le niveau du noeud dans l'arbre
         self.numbin = numbin        #nombre de boîtes utilisées
-        self.conf = conf
-
+        self.config = config
     def getNiveau(self):
         return self.niveau
 
@@ -198,88 +197,92 @@ class Node:
 
     def getpoidrest(self, i):
         return self.poidrest[i]
-
-    def getconf(self):
-        return self.conf  
+    def getConfigs(self):
+        return self.config
+    def getConfig(self, i):
+        return self.config[i]
 
 
 @eel.expose
-def branchAndBound(w, c):
+def branchAndBound( w, c):
         temps_Debut_exec = datetime.now()
         n = len(w)
+        obj=[]
+        a = [] 
+        config=[-1]*n
         minBins = n  # initialiser la valeur optimale à n
         Nodes = []  # les noeuds à traiter
         poidrest = [c] * n  # initialiser les poids restants dans chaque boite [c,c,c,.......c]
         numBins = 0  # initialiser le nombre de boites utilisées
-        conf = [-1] * n
-        conf_opt = []
-        for k in range(len(w)):
-            print("*******************************")
-            print(type(w[k]),type(c))
-            print("*******************************")
+        for k in range(n):
+           
             if w[k] > c:
                 print("les poids des objets ne doivent pas dépasser la capacité du bin")
                 return 0
             else:
-                
-                curN = Node(poidrest, 0, numBins,conf)  # créer le premier noeud, niveau 0, nombre de boites utilisées 0
-                
+                curN = Node(poidrest, 0, numBins,config)  # créer le premier noeud, niveau 0, nombre de boites utilisées 0
                 Nodes.append(curN)  # ajouter le noeud à l'arbre
-
                 while len(Nodes) > 0:  # tant qu'on a un noeud à traiter
-
+                    
                     curN = Nodes.pop()  # récupérrer un noeud pour le traiter (curN)
                     curNiveau = curN.getNiveau()  # récupérrer son niveau
 
                     if (curNiveau == n) and (
                             curN.getNumBin() < minBins):  # si c'est une feuille et nbr boites utilisées < minBoxes
-                        minBins = curN.getNumBin()  # mettre à jour minBoxes
-                        conf_opt = curN.getconf()
-                        print(conf_opt)
+                            minBins = curN.getNumBin()
+                            obj= curN.getConfigs()
+                           
+                           
+                        
                         
                     else:
 
                         indNewBox = curN.getNumBin()
-                        conf = curN.getconf() # je recupere la configuration du noeud
-                        
+                       
+                     
                         if (indNewBox < minBins):
-
+                           
+                         
                             poidCurNiveau = w[curNiveau]
-
+                            
                             for i in range(indNewBox + 1):
-                                
-                                if (curNiveau < n) and (curN.getpoidrest(i) >= poidCurNiveau):  # si c'est possible d'insérer l'objet dans la boite i
+                                if (curNiveau < n) and (curN.getpoidrest(
+                                        i) >= poidCurNiveau):  # si cet possible d'insérer l'objet dans la boite i
                                     # on crée un nouveau noeud.
-                                    conf[curNiveau] = i # j'insere l'affectation dans la config a l'indice de l'objet
-
                                     newWRemaining = curN.getpoidrests().copy()
                                     newWRemaining[i] -= poidCurNiveau  # la capacité restante i - le poids du nouvel objet
-
+                                    config =curN.getConfigs().copy()
                                     if (i == indNewBox):  # nouvelle boite
-                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox + 1,conf)
+                                        config[curNiveau]= indNewBox + 1
+                                       
+                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox + 1,config)
                                        
                                         for j in range(curNiveau + 1, len(w)):
                                             s = + w[j]
-
                                         if (((indNewBox + 1) + s / c) < minBins):
                                             Nodes.append(newNode)
+                                            
+                                           
                                     else:  # boite deja ouverte
-                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox,conf)
-                                        
+                                        config[curNiveau]= i+1
+                                        newNode = Node(newWRemaining, curNiveau + 1, indNewBox,config)
+                                       
                                         for j in range(curNiveau + 1, len(w)):
                                             s = + w[j]
                                         if ((indNewBox + s / c) < minBins):
                                             Nodes.append(newNode)
-                temps_apres_exec= datetime.now()
-                temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
-                print("Exec time :",temps_exec)
-                print("BINS :",minBins)
-                print("items++++ :",w)
-                print("config**** :",conf_opt)
-                eel.jsaffich(minBins,temps_exec)
-                tab = [minBins,temps_exec,conf_opt]
-                return tab                
+                                                                           
+        temps_apres_exec= datetime.now()
+        temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
+        print("Exec time :",temps_exec)
+        print("BINS :",minBins)
+        print("items++++ :",w)
+        print("config**** :",obj)
+        eel.jsaffich(minBins,temps_exec)
+        tab = [minBins,temps_exec,obj]
+        return tab                
 #*******************************************************************************
+        
 #****************************************AG*************************************
 class Item:
     def __init__(self,size):

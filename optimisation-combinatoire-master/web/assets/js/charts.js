@@ -37,10 +37,9 @@ document.querySelector("#file-upload-1").onchange = async function(){
             
     //---------------------------------------
     //-------------------FFI-----------------
-            
             tab  = await eel.ffi_py(capacite[i],items[i])();
             FFI[i] = tab[0];
-    //---------------------------------------
+    //--------------------------------------
     //-------------------BF-----------------
             tab =[];
             tab  = await eel.bf_py(capacite[i],items[i])();
@@ -63,15 +62,9 @@ document.querySelector("#file-upload-1").onchange = async function(){
     //---------------------------------------
     }
 
-    Bars(FFD , FFI , BF , wf  , nf , names) ; 
-
-       
+    Bars(FFD , FFI , BF , wf  , nf , names);       
 }
-
-
-
 /*----------------------------------------------------------------------------------------------*/
-
 document.querySelector("#file-upload-2").onchange = async function(){
     document.querySelector("#file-name2").textContent ="loaded" ; 
     document.querySelector("#line-chart-2").innerHTML = '' ; 

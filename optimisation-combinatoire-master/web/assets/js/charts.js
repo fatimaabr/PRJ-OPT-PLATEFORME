@@ -250,7 +250,7 @@ function Bars(FFD , FFI , BF , wf   , nf , names) {
             },
         },
         dataLabels: {
-            enabled: false
+            enabled: true 
         },
         colors: ["#0e9e4a", "#4680ff", "#ff5252" , "#ffba57" , "#00acc1" , "#9ccc65" , "#20c997"],
         stroke: {
@@ -289,13 +289,7 @@ function Bars(FFD , FFI , BF , wf   , nf , names) {
                 text: 'Solutions'
             }
         },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'right',
-            floating: true,
-            offsetY: -25,
-            offsetX: -5
-          }, 
+       
         fill: {
             opacity: 1
 

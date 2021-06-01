@@ -1,7 +1,13 @@
+// variables globales
+
 var capacite = 0 ; 
 var items = [] ; 
 var nombre_items = 0 ; 
 var solution = [] ; 
+
+
+
+// add instance 
 
 async function loadFile(file) {
     
@@ -33,6 +39,10 @@ async function loadFile(file) {
     document.getElementById("time").innerHTML ="" ; 
 
 }
+
+
+
+// FFD function 
 
 function FFD (w , c ) {
     var order = Array.from(Array(w.length).keys()).sort((a, b) => w[a] > w[b] ? -1 : (w[b] > w[a]) | 0) ; 

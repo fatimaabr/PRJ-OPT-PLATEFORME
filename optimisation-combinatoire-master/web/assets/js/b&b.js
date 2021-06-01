@@ -87,8 +87,8 @@ async function bnbjs(){
 }
 document.getElementById('capacite').contentEditable = false;
 document.getElementById('NB').contentEditable = false;   
-     console.log("%%% typeofitems="+typeof items);
-     console.log("%%% typeofcapacity="+typeof capacite);
+     //console.log("%%% typeofitems="+typeof items);
+     //console.log("%%% typeofcapacity="+typeof capacite);
     //eel.branchAndBound(items,capacite);
             var tab =[];
             tab  = await eel.branchAndBound(items,capacite)();
@@ -113,8 +113,7 @@ document.getElementById('NB').contentEditable = false;
                 affectation[i].push(j) ; 
                 weights[i] += items[j] ; 
             }
-        }
-        
+        }       
     }
     console.log(weights) ; 
     var aff = $('.affectation')[0] ; 

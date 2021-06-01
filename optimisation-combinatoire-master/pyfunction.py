@@ -272,17 +272,16 @@ def branchAndBound( w, c):
                                         if ((indNewBox + s / c) < minBins):
                                             Nodes.append(newNode)
                                                                            
-        temps_apres_exec= datetime.now()
-        temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
-        print("Exec time :",temps_exec)
-        print("BINS :",minBins)
-        print("items++++ :",w)
-        print("config**** :",obj)
-        eel.jsaffich(minBins,temps_exec)
-        tab = [minBins,temps_exec,obj]
-        return tab                
-#*******************************************************************************
-        
+                temps_apres_exec= datetime.now()
+                temps_exec = (temps_apres_exec - temps_Debut_exec).total_seconds()
+                print("Exec time :",temps_exec)
+                print("BINS :",minBins)
+                print("items++++ :",w)
+                print("config**** :",obj)
+                eel.jsaffich(minBins,temps_exec)
+                tab = [minBins,temps_exec,obj]
+                return tab                
+#*******************************************************************************       
 #****************************************AG*************************************
 class Item:
     def __init__(self,size):
@@ -337,10 +336,6 @@ class Bin:
         :return: (fullness / capacity) ^ 2
         """
         return (self.filled_space() / self.capacity) ** 2
-   
-
-
-
 
 class Heuristic:
     @staticmethod

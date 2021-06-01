@@ -66,7 +66,7 @@ var capacite = 0 ;
 				for(var j = 0 ; j< tab[2].length; j++) {
 					if(tab[2][j]==list_bins[i]) {
 						affectation[i].push(j) ; 
-						weights[i] += items[j] ; 
+						weights[i] += d[j] ; 
 					}
 				}
 				

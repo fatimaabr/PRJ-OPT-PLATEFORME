@@ -126,13 +126,29 @@ document.querySelector("#file-upload-2").onchange = async function(){
       
 }
 
-
-
-
 /*************************************************************************************************** */
+//document.querySelector("#file-upload-2").onchange = async function(){
+    //document.querySelector("#file-name2").textContent ="loaded" ; 
+    document.querySelector("#line-chart-4").innerHTML = '' ; 
+    var text = "" ; 
+    var names1 = ["N1C1W1_B","N1C1W1_D", "N1C1W1_T", "N1C1W4_H","N1C2W2_C"] ; 
+    var names2 = ["N2C1W2_Q","N2C1W1_J", "N2C1W2_R"] ;
+    var names3 = ["N3C1W1_T","N3C1W1_A"] ;
+    var names = [names1,names2, names3] ;
 
-
-
+    var list = [50,100,200] ; 
+    var capacite = [] ;  
+    var nombre_items = [] ; 
+    var items = [] ; 
+    var nbins = [[31,28,28,40,29],[65,59,67],[102,-1]] ;
+    var texec = [[0.021,0.03091,0.02796,0.00598,0.02692],[0.2279,0.2164,0.1107],[4.67,1000]] ;
+   
+    Bars(nbins[1] , texec[1], names1); 
+    Bars(nbins[2] , texec[2], names2);
+    Bars(nbins[3] , texec[3], names3);
+      
+//}
+/*************************************************************************************************** */
 /*function for line chart 2 */  
 function line2(RS , BF , RT , AG , names) {
     var options = {

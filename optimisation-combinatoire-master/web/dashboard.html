@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script type="text/javascript" src="/eel.js"></script>
 </head>
-
-
 <body class="">
 	<!-- [ Pre-loader ] start -->
 	<div class="loader-bg">
@@ -105,7 +103,20 @@
         </div>
         <!-- [ breadcrumb ] end -->
         <!-- [ Main Content ] start -->
-		
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header d-flex justify-content-between">
+					<h5>Comparaison des résultats d'execution Branch and Bound</h5>
+					<div class="input-group cust-file-button col-sm-8">
+						
+					</div>
+				</div>
+				<div class="card-body row">
+					<div id="line-chart-4" class="col-md-6"></div>
+					<div id="line-chart-3" class="col-md-6"></div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
             <!-- [ variant-chart ] start -->
             <div class="col-md-12">
@@ -117,7 +128,6 @@
                             <div class="custom-file">
 								<label class="custom-file-label" for="file-upload-1" id="file-name" >Choisir des instances</label>
                                 <input type="file" class="custom-file-input" id="file-upload-1" onchange="loadFile(this.files[0])" multiple>
-                              
                             </div>
                         </div>
                     </div>
@@ -143,6 +153,7 @@
                     </div>
                 </div>
             </div>
+			
 		</div>
 
 
